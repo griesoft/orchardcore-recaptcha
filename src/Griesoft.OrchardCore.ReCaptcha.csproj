@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>Joonas Griesinger</Authors>
+		<Owners>jgdevlabs,jooni91</Owners>
+		<Company>Griesinger Software</Company>
+		<Copyright>2022 © Griesinger Software</Copyright>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageTags>recaptcha;orchardcore;module;aspnetcore</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>Orchard Core reCAPTCHA Module</Title>
+		<Description>A Google reCAPTCHA Orchard Core module based on the Griesoft.AspNetCore.Griesoft package. Supports reCAPTCHA V2 and V3.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>..\docs\Griesoft.OrchardCore.ReCaptcha.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Griesoft.AspNetCore.ReCaptcha" Version="2.0.5" />
+		<PackageReference Include="OrchardCore.Module.Targets" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.ContentManagement" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.DisplayManagement" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.Navigation.Core" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.ResourceManagement" Version="1.3.0" />
+		<PackageReference Include="OrchardCore.Workflows.Abstractions" Version="1.3.0" />
+	</ItemGroup>
+
+</Project>

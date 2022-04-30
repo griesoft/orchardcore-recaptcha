@@ -1,0 +1,57 @@
+﻿using Griesoft.AspNetCore.ReCaptcha.Configuration;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using OrchardCore.Entities;
+using OrchardCore.Settings;
+
+namespace Griesoft.OrchardCore.ReCaptcha.Services
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RecaptchaSettingsConfiguration : IConfigureOptions<RecaptchaSettings>
+    {
+        private readonly ISiteService _siteService;
+        private readonly IDataProtectionProvider _dataProtectionProvider;
+        private readonly ILogger _logger;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="siteService"></param>
+        /// <param name="dataProtectionProvider"></param>
+        public RecaptchaSettingsConfiguration(ISiteService siteService, IDataProtectionProvider dataProtectionProvider,
+            ILogger<RecaptchaSettingsConfiguration> logger)
+        {
+            _siteService = siteService;
+            _dataProtectionProvider = dataProtectionProvider;
+            _logger = logger;
+        }
+
+        public void Configure(RecaptchaSettings options)
+        {
+            var settings = _siteService.GetSiteSettingsAsync()
+                .GetAwaiter().GetResult()
+                .As<RecaptchaSettings>();
+
+            if (string.IsNullOrEmpty(options.SiteKey))
+            {
+                options.SiteKey = settings.SiteKey;
+            }
+
+            if (string.IsNullOrEmpty(options.SecretKey))
+            {
+                try
+                {
+                    var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
+                    options.SecretKey = protector.Unprotect(settings.SecretKey);
+                }
+                catch
+                {
+                    _logger.LogError("The SecretKey could not be decrypted. It may have been encrypted using a different key.");
+                }
+            }
+        }
+    }
+}

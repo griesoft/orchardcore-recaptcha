@@ -1,0 +1,8 @@
+﻿@model ValidateRecaptchaV3TaskViewModel
+
+<div class="form-group" asp-validation-class-for="Action">
+    <label asp-for="Action">@T["Action"]</label>
+    <input asp-for="Action" class="form-control" autofocus="autofocus" />
+    <span asp-validation-for="Action"></span>
+    <span class="hint">@T["The action name of the challenge that is validated. It is recommended that you specify an action name to each challenge."]</span>
+</div>

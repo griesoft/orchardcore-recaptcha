@@ -1,0 +1,5 @@
+﻿@model ActivityViewModel<ValidateRecaptchaV2Task>
+
+<header>
+    <h4><i class="fa-regular fa-square-check" aria-hidden="true"></i>@Model.Activity.GetTitleOrDefault(() => T["Validate reCAPTCHA V2"])</h4>
+</header>
