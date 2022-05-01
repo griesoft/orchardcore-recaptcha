@@ -77,7 +77,6 @@ jobs:
           command: 'pack'
           packagesToPack: '**/src/*.csproj'
           configuration: '$(buildConfiguration)'
-          nobuild: true
           includesymbols: true
           versioningScheme: 'byEnvVar'
           versionEnvVar: 'packageVersion'
