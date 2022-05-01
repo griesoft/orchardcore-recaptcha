@@ -55,7 +55,7 @@ jobs:
           command: 'build'
           projects: '**/src/*.csproj'
           configuration: '$(buildConfiguration)'
-          outputDir: '$(Build.ArtifactStagingDirectory)'
+          arguments: '/p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
           includesymbols: true
           versioningScheme: 'byEnvVar'
           versionEnvVar: 'packageVersion'
