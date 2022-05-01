@@ -4,10 +4,71 @@
         <name>Griesoft.OrchardCore.ReCaptcha</name>
     </assembly>
     <members>
-        <member name="T:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration">
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.AdminMenu">
+            <summary>
+            Recaptcha settings admin menu navigation provider.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Griesoft.OrchardCore.ReCaptcha.AdminMenu})">
             <summary>
             
             </summary>
+            <param name="stringLocalizer"></param>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildNavigationAsync(System.String,OrchardCore.Navigation.NavigationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver">
+            <summary>
+            The display driver for the reCAPTCHA settings editor group.
+            </summary>
+        </member>
+        <member name="F:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditorGroupId">
+            <summary>
+            The settings editor group ID.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.IShellHost,OrchardCore.Environment.Shell.ShellSettings,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings})">
+            <summary>
+            
+            </summary>
+            <param name="authorizationService"></param>
+            <param name="httpContext"></param>
+            <param name="dataProtectionProvider"></param>
+            <param name="shellHost"></param>
+            <param name="shellSettings"></param>
+            <param name="optionsMonitor"></param>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditAsync(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.UpdateAsync(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Permissions">
+            <summary>
+            Recaptcha settings permissions.
+            </summary>
+        </member>
+        <member name="F:Griesoft.OrchardCore.ReCaptcha.Permissions.ManageRecaptchaSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Permissions.GetPermissionsAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Permissions.GetDefaultStereotypes">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration">
+            <inheritdoc />
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration.#ctor(OrchardCore.Settings.ISiteService,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,Microsoft.Extensions.Logging.ILogger{Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration})">
             <summary>
@@ -16,14 +77,36 @@
             <param name="siteService"></param>
             <param name="dataProtectionProvider"></param>
         </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration.Configure(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Startup">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Startup.#ctor(OrchardCore.Environment.Shell.Configuration.IShellConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="shellConfiguration"></param>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaInvisibleTagHelper">
             <inheritdoc/>
+            <remarks>
+            This tag helper only exists to override the namespace of the tag. To prevent name clashes by providing all
+            tag helpers under the same namespace when importing them.
+            </remarks>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaInvisibleTagHelper.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings},Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaOptions},Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager)">
             <inheritdoc/>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper">
-            <inheritdoc/>
+            <summary>
+            Overrides the default behavior of the <see cref="T:Griesoft.AspNetCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper"/>
+            by registering the output with the <see cref="T:OrchardCore.ResourceManagement.IResourceManager"/> to the foot script section.
+            </summary>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper.#ctor(OrchardCore.ResourceManagement.IResourceManager,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings},System.Text.Encodings.Web.HtmlEncoder)">
             <summary>
@@ -31,25 +114,65 @@
             </summary>
             <param name="resourceManager"></param>
             <param name="settings"></param>
+            <param name="htmlEncoder"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper.Process(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
             <inheritdoc/>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaTagHelper">
             <inheritdoc/>
+            <remarks>
+            This tag helper only exists to override the namespace of the tag. To prevent name clashes by providing all
+            tag helpers under the same namespace when importing them.
+            </remarks>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaTagHelper.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings},Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaOptions})">
             <inheritdoc/>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaV3TagHelper">
             <inheritdoc/>
+            <remarks>
+            This tag helper only exists to override the namespace of the tag. To prevent name clashes by providing all
+            tag helpers under the same namespace when importing them.
+            </remarks>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaV3TagHelper.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings},Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager)">
             <inheritdoc/>
         </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel">
+            <summary>
+            View model for <see cref="T:Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings"/> 
+            and <see cref="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver"/>.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SiteKey">
+            <summary>
+            The reCAPTCHA site key.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKey">
+            <summary>
+            The reCAPTCHA secret key.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.CanEditSiteKey">
+            <summary>
+            Indicates whether the site key can be modified or not.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.CanEditSecretKey">
+            <summary>
+            Indicates whether the secret key can be modified or not.
+            </summary>
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase">
             <summary>
             A reCAPTCHA validation task base class.
+            </summary>
+        </member>
+        <member name="F:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.S">
+            <summary>
+            
             </summary>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV2Task},Griesoft.AspNetCore.ReCaptcha.Services.IRecaptchaService,Microsoft.AspNetCore.Http.IHttpContextAccessor,OrchardCore.DisplayManagement.ModelBinding.IUpdateModelAccessor,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaOptions})">
@@ -63,6 +186,34 @@
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.GetPossibleOutcomes(OrchardCore.Workflows.Models.WorkflowExecutionContext,OrchardCore.Workflows.Models.ActivityContext)">
             <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.ValidateToken(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Validate the <paramref name="context"/> contains a valid reCAPTCHA token.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.TryAddModelError(System.String)">
+            <summary>
+            Try to add an error to the model state.
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.GetRemoteIp(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Get the remote IP address of the client.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.TryGetRecaptchaToken(Microsoft.AspNetCore.Http.HttpRequest,System.String@)">
+            <summary>
+            Try to get the reCAPTCHA token out of the <paramref name="request"/>.
+            </summary>
+            <param name="request"></param>
+            <param name="token"></param>
+            <returns></returns>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV2Task">
             <summary>
@@ -90,6 +241,9 @@
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV2Task.HasEditor">
             <inheritdoc />
         </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV2Task.ExecuteAsync(OrchardCore.Workflows.Models.WorkflowExecutionContext,OrchardCore.Workflows.Models.ActivityContext)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task">
             <summary>
             A reCAPTCHA V3 challenge validation task for Orchard Core work flows.
@@ -104,6 +258,7 @@
             <param name="httpContextAccessor"></param>
             <param name="updateModelAccessor"></param>
             <param name="expressionEvaluator"></param>
+            <param name="options"></param>
         </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.Name">
             <inheritdoc />
@@ -136,6 +291,12 @@
             <inheritdoc />
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskDisplayDriver.UpdateActivity(Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel,Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.Startup">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel">
