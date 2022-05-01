@@ -1,8 +1,4 @@
 trigger:
-  branches:
-    include:
-    - main
-    - dev
   paths:
     exclude:
     - '*/README.md'
@@ -18,8 +14,6 @@ pool:
 
 variables:
   - group: 'Package Versioning'
-  - name: buildPlatform
-    value: 'Any CPU'
   - name: buildConfiguration 
     value: 'Release'
 
