@@ -54,8 +54,7 @@ jobs:
         inputs:
           command: 'build'
           projects: '**/src/*.csproj'
-          configuration: '$(buildConfiguration)'
-          arguments: '-o $(Build.ArtifactStagingDirectory)/Output'
+          arguments: '-c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/Output'
           includesymbols: true
           versioningScheme: 'byEnvVar'
           versionEnvVar: 'packageVersion'
