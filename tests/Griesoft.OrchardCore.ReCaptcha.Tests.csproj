@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TagHelpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\src\Griesoft.OrchardCore.ReCaptcha.csproj" />
   </ItemGroup>
 
