@@ -36,8 +36,8 @@ jobs:
           {
             Write-Host "##vso[task.setvariable variable=version;isOutput=true]$(major).$(minor).$(patch)-ci$(Build.BuildId)"
           }
-          displayName: Set Package Version
-          name: package
+        displayName: Set Package Version
+        name: package
 
   - job: BuildTestPack
     displayName: Build & Test & Pack
