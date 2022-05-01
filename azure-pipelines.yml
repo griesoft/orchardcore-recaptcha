@@ -40,11 +40,7 @@ jobs:
       - name: packageVersion
         value: $[ dependencies.Init.outputs['package.version'] ]
     steps:
-      - task: UseDotNet@2
-        inputs:
-          packageType: 'sdk'
-          version: '6.x'
-          
+
       - task: DotNetCoreCLI@2
         displayName: Restore NuGet packages
         inputs:
@@ -57,8 +53,12 @@ jobs:
         displayName: Build Package
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
+          projects: '**/src/*.csproj'
           configuration: '$(buildConfiguration)'
+          outputDir: '$(Build.ArtifactStagingDirectory)'
+          includesymbols: true
+          versioningScheme: 'byEnvVar'
+          versionEnvVar: 'packageVersion'
 
       - task: DotNetCoreCLI@2
         displayName: Run Tests
@@ -67,19 +67,6 @@ jobs:
           command: 'test'
           projects: '**/tests/*.csproj'
           testRunTitle: 'Run Tests'
-          nobuild: true
-
-      - task: DotNetCoreCLI@2
-        displayName: Pack Package
-        condition: succeeded()
-        inputs:
-          command: 'pack'
-          packagesToPack: '**/src/*.csproj'
-          configuration: '$(buildConfiguration)'
-          nobuild: true
-          includesymbols: true
-          versioningScheme: 'byEnvVar'
-          versionEnvVar: 'packageVersion'
 
       - task: PublishBuildArtifacts@1
         displayName: Publish Artifacts
