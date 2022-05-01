@@ -1,24 +1,28 @@
-﻿using Griesoft.AspNetCore.ReCaptcha.Configuration;
-using Griesoft.OrchardCore.ReCaptcha.Drivers;
+﻿using Griesoft.OrchardCore.ReCaptcha.Drivers;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
-using OrchardCore.Entities;
 using OrchardCore.Navigation;
-using OrchardCore.Settings;
 using System;
 using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha
 {
+    /// <summary>
+    /// Recaptcha settings admin menu navigation provider.
+    /// </summary>
     public class AdminMenu : INavigationProvider
     {
         private readonly IStringLocalizer S;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stringLocalizer"></param>
         public AdminMenu(IStringLocalizer<AdminMenu> stringLocalizer)
         {
             S = stringLocalizer;
         }
 
+        /// <inheritdoc />
         public Task BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (!string.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))

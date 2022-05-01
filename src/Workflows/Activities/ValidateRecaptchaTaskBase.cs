@@ -18,6 +18,9 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows.Activities
     /// </summary>
     public abstract class ValidateRecaptchaTaskBase : TaskActivity
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected readonly IStringLocalizer S;
 
         private readonly IRecaptchaService _recaptchaService;
@@ -48,6 +51,11 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows.Activities
             return Outcomes(S["Done"], S["Valid"], S["Invalid"]);
         }
 
+        /// <summary>
+        /// Validate the <paramref name="context"/> contains a valid reCAPTCHA token.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         protected async Task<AspNetCore.ReCaptcha.ValidationResponse> ValidateToken(HttpContext context)
         {
             AspNetCore.ReCaptcha.ValidationResponse validationResponse;
@@ -67,6 +75,10 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows.Activities
             return validationResponse;
         }
 
+        /// <summary>
+        /// Try to add an error to the model state.
+        /// </summary>
+        /// <param name="error"></param>
         protected void TryAddModelError(string error)
         {
             if (_updateModelAccessor.ModelUpdater != null)
@@ -74,12 +86,23 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows.Activities
                 _updateModelAccessor.ModelUpdater.ModelState.TryAddModelError(RecaptchaServiceConstants.TokenKeyName, error);
             }
         }
+        /// <summary>
+        /// Get the remote IP address of the client.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         protected string? GetRemoteIp(HttpContext? context)
         {
             return _options.UseRemoteIp ?
                 context?.Connection.RemoteIpAddress?.ToString() :
                 null;
         }
+        /// <summary>
+        /// Try to get the reCAPTCHA token out of the <paramref name="request"/>.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         protected static bool TryGetRecaptchaToken(HttpRequest request, [NotNullWhen(true)] out string? token)
         {
             if (request.Headers.ContainsKey(RecaptchaServiceConstants.TokenKeyName))

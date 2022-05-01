@@ -7,9 +7,7 @@ using OrchardCore.Settings;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Services
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <inheritdoc />
     public class RecaptchaSettingsConfiguration : IConfigureOptions<RecaptchaSettings>
     {
         private readonly ISiteService _siteService;
@@ -29,6 +27,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
             _logger = logger;
         }
 
+        /// <inheritdoc />
         public void Configure(RecaptchaSettings options)
         {
             var settings = _siteService.GetSiteSettingsAsync()

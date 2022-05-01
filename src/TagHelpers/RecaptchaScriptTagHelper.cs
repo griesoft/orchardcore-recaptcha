@@ -8,7 +8,10 @@ using System.Text.Encodings.Web;
 
 namespace Griesoft.OrchardCore.ReCaptcha.TagHelpers
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Overrides the default behavior of the <see cref="AspNetCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper"/>
+    /// by registering the output with the <see cref="IResourceManager"/> to the foot script section.
+    /// </summary>
     public class RecaptchaScriptTagHelper : AspNetCore.ReCaptcha.TagHelpers.RecaptchaScriptTagHelper
     {
         private readonly IResourceManager _resourceManager;
@@ -19,6 +22,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.TagHelpers
         /// </summary>
         /// <param name="resourceManager"></param>
         /// <param name="settings"></param>
+        /// <param name="htmlEncoder"></param>
         public RecaptchaScriptTagHelper(IResourceManager resourceManager, IOptionsMonitor<RecaptchaSettings> settings,
             HtmlEncoder htmlEncoder) : base(settings) 
         {

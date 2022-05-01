@@ -14,8 +14,14 @@ using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Drivers
 {
+    /// <summary>
+    /// The display driver for the reCAPTCHA settings editor group.
+    /// </summary>
     public class RecaptchaSettingsDisplayDriver : SectionDisplayDriver<ISite, RecaptchaSettings>
     {
+        /// <summary>
+        /// The settings editor group ID.
+        /// </summary>
         public const string EditorGroupId = "GriesoftRecaptcha";
 
         private readonly IAuthorizationService _authorizationService;
@@ -25,6 +31,15 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         private readonly ShellSettings _shellSettings;
         private readonly RecaptchaSettings _settings;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authorizationService"></param>
+        /// <param name="httpContext"></param>
+        /// <param name="dataProtectionProvider"></param>
+        /// <param name="shellHost"></param>
+        /// <param name="shellSettings"></param>
+        /// <param name="optionsMonitor"></param>
         public RecaptchaSettingsDisplayDriver(IAuthorizationService authorizationService, IHttpContextAccessor httpContext,
             IDataProtectionProvider dataProtectionProvider, IShellHost shellHost, ShellSettings shellSettings, 
             IOptionsMonitor<RecaptchaSettings> optionsMonitor)
@@ -37,6 +52,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             _settings = optionsMonitor.CurrentValue;
         }
 
+        /// <inheritdoc />
         public override async Task<IDisplayResult?> EditAsync(RecaptchaSettings section, BuildEditorContext context)
         {
             if (!await IsAuthorizedToManageRecaptchaSettingsAsync())
@@ -66,6 +82,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             .Location("Content:1")
             .OnGroup(EditorGroupId);
         }
+        /// <inheritdoc />
         public override async Task<IDisplayResult?> UpdateAsync(RecaptchaSettings section, BuildEditorContext context)
         {
             if (context.GroupId == EditorGroupId)

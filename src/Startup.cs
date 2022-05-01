@@ -12,15 +12,21 @@ using OrchardCore.Settings;
 
 namespace Griesoft.OrchardCore.ReCaptcha
 {
+    /// <inheritdoc />
     public class Startup : StartupBase
     {
         private readonly IShellConfiguration _shellConfiguration;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shellConfiguration"></param>
         public Startup(IShellConfiguration shellConfiguration)
         {
             _shellConfiguration = shellConfiguration;
         }
 
+        /// <inheritdoc />
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddRecaptchaService();

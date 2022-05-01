@@ -44,8 +44,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows
         /// <inheritdoc />
         public override bool HasEditor => false;
 
-
-
+        /// <inheritdoc />
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             if (_httpContextAccessor.HttpContext == null)
