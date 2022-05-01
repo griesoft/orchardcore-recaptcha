@@ -1,8 +1,4 @@
 trigger:
-  branches:
-    include:
-    - main
-    - dev
   paths:
     exclude:
     - '*/README.md'
@@ -18,8 +14,6 @@ pool:
 
 variables:
   - group: 'Package Versioning'
-  - name: buildPlatform
-    value: 'Any CPU'
   - name: buildConfiguration 
     value: 'Release'
 
@@ -46,6 +40,7 @@ jobs:
       - name: packageVersion
         value: $[ dependencies.Init.outputs['package.version'] ]
     steps:
+
       - task: DotNetCoreCLI@2
         displayName: Restore NuGet packages
         inputs:
@@ -58,8 +53,11 @@ jobs:
         displayName: Build Package
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
-          configuration: '$(buildConfiguration)'
+          projects: '**/src/*.csproj'
+          arguments: '-c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/Output'
+          includesymbols: true
+          versioningScheme: 'byEnvVar'
+          versionEnvVar: 'packageVersion'
 
       - task: DotNetCoreCLI@2
         displayName: Run Tests
@@ -68,18 +66,6 @@ jobs:
           command: 'test'
           projects: '**/tests/*.csproj'
           testRunTitle: 'Run Tests'
-          nobuild: true
-
-      - task: DotNetCoreCLI@2
-        displayName: Pack Package
-        condition: succeeded()
-        inputs:
-          command: 'pack'
-          packagesToPack: '**/src/*.csproj'
-          configuration: '$(buildConfiguration)'
-          includesymbols: true
-          versioningScheme: 'byEnvVar'
-          versionEnvVar: 'packageVersion'
 
       - task: PublishBuildArtifacts@1
         displayName: Publish Artifacts
