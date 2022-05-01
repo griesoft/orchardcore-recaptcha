@@ -40,6 +40,11 @@ jobs:
       - name: packageVersion
         value: $[ dependencies.Init.outputs['package.version'] ]
     steps:
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '6.x'
+          
       - task: DotNetCoreCLI@2
         displayName: Restore NuGet packages
         inputs:
