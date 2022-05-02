@@ -10,6 +10,7 @@ using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Environment.Shell;
 using OrchardCore.Settings;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Drivers
@@ -60,24 +61,12 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                 return null;
             }
 
-            string secret = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(section.SecretKey))
-            {
-                try
-                {
-                    var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
-                    secret = protector.Unprotect(section.SecretKey);
-                }
-                catch { }
-            }
-
             return Initialize<RecaptchaSettingsViewModel>($"{nameof(RecaptchaSettings)}_Edit", viewModel =>
             {
                 viewModel.CanEditSiteKey = CanEditSiteKey(section);
-                viewModel.CanEditSecretKey = CanEditSecretKey(secret);
+                viewModel.CanEditSecretKey = TryDecryptSecret(section.SecretKey, out var decrypted) && CanEditSecretKey(decrypted);
                 viewModel.SiteKey = section.SiteKey;
-                viewModel.SecretKey = secret;
+                viewModel.SecretKey = decrypted;
             })
             .Location("Content:1")
             .OnGroup(EditorGroupId);
@@ -107,7 +96,8 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                     section.SecretKey = string.Empty;
                 }
                 // Only set the secret if not specified in appsettings.json
-                else if (!string.IsNullOrWhiteSpace(viewModel.SecretKey) && CanEditSecretKey(viewModel.SecretKey))
+                else if (!string.IsNullOrWhiteSpace(viewModel.SecretKey) && 
+                    TryDecryptSecret(section.SecretKey, out var decrypted) && CanEditSecretKey(decrypted))
                 {
                     var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
                     section.SecretKey = protector.Protect(viewModel.SecretKey);
@@ -125,13 +115,36 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
 
             return user != null && await _authorizationService.AuthorizeAsync(user, Permissions.ManageRecaptchaSettings);
         }
+        private bool TryDecryptSecret(string encrypted, [NotNullWhen(true)] out string? decrypted)
+        {
+            decrypted = null;
+
+            if (!string.IsNullOrWhiteSpace(encrypted))
+            {
+                try
+                {
+                    var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
+                    decrypted = protector.Unprotect(encrypted);
+                }
+                catch 
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                decrypted = string.Empty;
+            }
+
+            return true;
+        }
         private bool CanEditSiteKey(RecaptchaSettings settings)
         {
             return _settings.SiteKey == settings.SiteKey;
         }
-        private bool CanEditSecretKey(string secret)
+        private bool CanEditSecretKey(string decryptedSecret)
         {
-            return _settings.SecretKey == secret;
+            return _settings.SecretKey == decryptedSecret;
         }
     }
 }
