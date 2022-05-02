@@ -1,13 +1,13 @@
 # Orchard Core reCAPTCHA Module
-An Orchard Core reCAPTCHA module that is based on our [ASP.NET Core reCAPTCHA](https://github.com/jgdevlabs/aspnetcore-recaptcha) service.
+An Orchard Core reCAPTCHA module that is based on our [ASP.NET Core reCAPTCHA](https://github.com/griesoft/aspnetcore-recaptcha) service.
 
 All features are included in this module from the base service.
 
 [![Build Status](https://dev.azure.com/griesingersoftware/Orchard%20Core%20reCAPTCHA%20Module/_apis/build/status/CI%20Pipeline?branchName=main)](https://dev.azure.com/griesingersoftware/Orchard%20Core%20reCAPTCHA%20Module/_apis/build/status/CI%20Pipeline?branchName=main)
 [![Build Status](https://vsrm.dev.azure.com/griesingersoftware/_apis/public/Release/badge/a7959783-e730-4a16-8ec8-436620f88501/1/2)](https://vsrm.dev.azure.com/griesingersoftware/_apis/public/Release/badge/a7959783-e730-4a16-8ec8-436620f88501/1/2)
-[![License](https://badgen.net/github/license/jgdevlabs/orchardcore-recaptcha)](https://github.com/jgdevlabs/orchardcore-recaptcha/blob/master/LICENSE)
+[![License](https://badgen.net/github/license/griesoft/orchardcore-recaptcha)](https://github.com/griesoft/orchardcore-recaptcha/blob/master/LICENSE)
 [![NuGet](https://badgen.net/nuget/v/Griesoft.OrchardCore.ReCaptcha)](https://www.nuget.org/packages/Griesoft.OrchardCore.ReCaptcha)
-[![GitHub Release](https://badgen.net/github/release/jgdevlabs/orchardcore-recaptcha)](https://github.com/jgdevlabs/orchardcore-recaptcha/releases)
+[![GitHub Release](https://badgen.net/github/release/griesoft/orchardcore-recaptcha)](https://github.com/griesoft/orchardcore-recaptcha/releases)
 
 ## Work in progress
 This module is still work in progress.
@@ -46,7 +46,7 @@ Navigate to `Configuration -> Settings -> ReCaptcha`. Now enter your Site and Se
 #### From the appsettings.json
 There are two ways to add the site and secret key to your `appsettings.json` file. 
 
-One is by adding the configuration to the root of the file like described [here](https://github.com/jgdevlabs/aspnetcore-recaptcha#settings).
+One is by adding the configuration to the root of the file like described [here](https://github.com/griesoft/aspnetcore-recaptcha#settings).
 
 The other is by adding the configuration inside the `OrchardCore` section. This means you will be also able to configure reCAPTCHA for multible tenants differently. An example of the latter:
 
@@ -78,4 +78,4 @@ In case of reCAPTCHA V3 modify the recaptcha script tag like this `<recaptcha-sc
 ### Challenge Validation
 If you make use of workflows, there are tasks that you may use to validate incoming HTTP requests.
 
-If you need to validate incoming requests to your controllers or actions, you may refer to the validation [documentation of the base repo](https://github.com/jgdevlabs/aspnetcore-recaptcha#adding-backend-validation-to-an-action). One important thing to note is that you would make use of the `Griesoft.AspNetCore.ReCaptcha` namespace. That contains the `ValidateRecaptcha` attribute and all other validation-related logic and services.
+If you need to validate incoming requests to your controllers or actions, you may refer to the validation [documentation of the base repo](https://github.com/griesoft/aspnetcore-recaptcha#adding-backend-validation-to-an-action). One important thing to note is that you would make use of the `Griesoft.AspNetCore.ReCaptcha` namespace. That contains the `ValidateRecaptcha` attribute and all other validation-related logic and services.
