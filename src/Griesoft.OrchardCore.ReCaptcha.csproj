@@ -20,8 +20,8 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\docs\Griesoft.OrchardCore.ReCaptcha.xml</DocumentationFile>
-		<RepositoryUrl>https://github.com/jgdevlabs/orchardcore-recaptcha</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/jgdevlabs/orchardcore-recaptcha</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/griesoft/orchardcore-recaptcha</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/griesoft/orchardcore-recaptcha</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
