@@ -13,6 +13,6 @@ using System.Reflection;
 [assembly: Feature(
     Id = "Griesoft.OrchardCore.ReCaptcha",
     Name = "ReCaptcha",
-    Description = "A Google reCAPTCHA module.",
+    Description = "A Google reCAPTCHA module provided to you by the Griesoft team.",
     Category = "Security"
 )] 
