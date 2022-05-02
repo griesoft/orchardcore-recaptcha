@@ -9,14 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
-		.github\FUNDING.yml = .github\FUNDING.yml
 		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Griesoft.OrchardCore.ReCaptcha.Tests", "tests\Griesoft.OrchardCore.ReCaptcha.Tests.csproj", "{972C7B7D-0666-4B18-A901-AEFEE8D0CB98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griesoft.OrchardCore.ReCaptcha.Sample", "samples\Griesoft.OrchardCore.ReCaptcha.Sample\Griesoft.OrchardCore.ReCaptcha.Sample.csproj", "{D9C3E9BC-2C01-477D-B924-C6B1C3127DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Griesoft.OrchardCore.ReCaptcha.Sample", "samples\Griesoft.OrchardCore.ReCaptcha.Sample\Griesoft.OrchardCore.ReCaptcha.Sample.csproj", "{D9C3E9BC-2C01-477D-B924-C6B1C3127DAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
