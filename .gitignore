@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# OrchardCore generated files that we don't need to include in source control
+**/App_Data
+**/Localization
+
+**/wwwroot/is-cache
+**/wwwroot/ms-cache
