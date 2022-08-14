@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Griesoft.AspNetCore.ReCaptcha" Version="2.1.0" />
+		<PackageReference Include="Griesoft.AspNetCore.ReCaptcha" Version="2.1.1-ci1074" />
 		<PackageReference Include="OrchardCore.Module.Targets" Version="1.4.0" />
 		<PackageReference Include="OrchardCore.ContentManagement" Version="1.4.0" />
 		<PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.4.0" />
