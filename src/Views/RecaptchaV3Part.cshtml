@@ -1,0 +1,5 @@
+﻿@model RecaptchaV3PartViewModel
+<recaptcha-v3 form-id="@Model.FormId" callback="@Model.Callback" action="@Model.Action">@Model.Content</recaptcha-v3>
+
+@*Add the reCAPTCHA V3 script to the foot script section.*@
+<recaptcha-script render="V3" />

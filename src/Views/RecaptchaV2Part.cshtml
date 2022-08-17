@@ -1,0 +1,7 @@
+﻿@model RecaptchaV2PartViewModel
+<recaptcha callback="@Model.Callback" error-callback="@Model.ErrorCallback" expired-callback="@Model.ExpiredCallback" tab-index="@Model.TabIndex" theme="@Model.Theme">
+    @Model.Content
+</recaptcha>
+
+@*Add the reCAPTCHA script to the foot script section.*@
+<recaptcha-script />

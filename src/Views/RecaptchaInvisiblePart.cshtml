@@ -1,0 +1,18 @@
+﻿@model RecaptchaInvisiblePartViewModel
+@if (Model.TagType == TagType.Button)
+{
+    <button re-invisible form-id="@Model.FormId" callback="@Model.Callback" error-callback="@Model.ErrorCallback" 
+        expired-callback="@Model.ExpiredCallback" tab-index="@Model.TabIndex" badge="@Model.Badge">
+        @Model.Content
+    </button>
+}
+else
+{
+    <recaptcha-invisible form-id="@Model.FormId" callback="@Model.Callback" error-callback="@Model.ErrorCallback" 
+        expired-callback="@Model.ExpiredCallback" tab-index="@Model.TabIndex" badge="@Model.Badge">
+        @Model.Content
+    </recaptcha-invisible>
+}
+
+@*Add the reCAPTCHA script to the foot script section.*@
+<recaptcha-script />
