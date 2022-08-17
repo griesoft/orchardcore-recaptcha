@@ -1,7 +1,9 @@
+using Fluid;
 using Griesoft.AspNetCore.ReCaptcha.Configuration;
 using Griesoft.OrchardCore.ReCaptcha.Drivers;
 using Griesoft.OrchardCore.ReCaptcha.Models;
 using Griesoft.OrchardCore.ReCaptcha.Services;
+using Griesoft.OrchardCore.ReCaptcha.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
@@ -33,6 +35,13 @@ namespace Griesoft.OrchardCore.ReCaptcha
         /// <inheritdoc />
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<TemplateOptions>(options =>
+            {
+                options.MemberAccessStrategy.Register<RecaptchaV2PartViewModel>();
+                options.MemberAccessStrategy.Register<RecaptchaInvisiblePartViewModel>();
+                options.MemberAccessStrategy.Register<RecaptchaV3PartViewModel>();
+            });
+
             services.AddRecaptchaService();
 
             services.Configure<RecaptchaSettings>(_shellConfiguration.GetSection(RecaptchaServiceConstants.SettingsSectionKey));
