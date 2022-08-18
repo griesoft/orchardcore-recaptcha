@@ -18,6 +18,20 @@
         <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildNavigationAsync(System.String,OrchardCore.Navigation.NavigationBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver">
+            <summary>
+            The ReCaptcha invisible content part display driver.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver">
             <summary>
             The display driver for the reCAPTCHA settings editor group.
@@ -44,6 +58,189 @@
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.UpdateAsync(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
             <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver">
+            <summary>
+            The ReCaptcha V2 content part display driver.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver">
+            <summary>
+            The ReCaptcha V3 content part display driver.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part)">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Enums.TagType">
+            <summary>
+            HTML tag types.
+            </summary>
+        </member>
+        <member name="F:Griesoft.OrchardCore.ReCaptcha.Enums.TagType.Button">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Griesoft.OrchardCore.ReCaptcha.Enums.TagType.Div">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Migrations">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Griesoft.OrchardCore.ReCaptcha.Migrations},OrchardCore.ContentManagement.Metadata.IContentDefinitionManager)">
+            <summary>
+            
+            </summary>
+            <param name="contentDefinitionManager"></param>
+            <param name="stringLocalizer"></param>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.Create">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart">
+            <summary>
+            A ReCaptcha Invisible content part.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.Badge">
+            <summary>
+            The position of the reCAPTCHA badge.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.TabIndex">
+            <summary>
+            The tabindex of the challenge. If other elements in your page use tabindex, it should be set to make user navigation easier.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.FormId">
+            <summary>
+            The Id of the form that this ReCaptcha is protecting.
+            </summary>
+            <remarks>
+            If <see cref="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.Callback"/> is specified the value of this property will be ignored.
+            If Callback is not specified a form id is required.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.Callback">
+            <summary>
+            The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+            <remarks>
+            If left empty a form Id is required and the part will render a script that will submit the form with the given Id.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.ExpiredCallback">
+            <summary>
+            The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.ErrorCallback">
+            <summary>
+            The name of your callback function, executed when reCAPTCHA encounters an error (usually network connectivity) 
+            and cannot continue until connectivity is restored. If you specify a function here, you are responsible for 
+            informing the user that they should retry.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.ContentText">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart.TagType">
+            <summary>
+            The tag type that this element should be rendered as.
+            </summary>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part">
+            <summary>
+            A ReCaptcha V2 content part.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.Theme">
+            <summary>
+            The color theme of the widget.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.TabIndex">
+            <summary>
+            The tabindex of the challenge. If other elements in your page use tabindex, it should be set to make user navigation easier.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.Callback">
+            <summary>
+            Optional: The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.ExpiredCallback">
+            <summary>
+            The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.ErrorCallback">
+            <summary>
+            The name of your callback function, executed when reCAPTCHA encounters an error (usually network connectivity) 
+            and cannot continue until connectivity is restored. If you specify a function here, you are responsible for 
+            informing the user that they should retry.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part.ContentText">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part">
+            <summary>
+            A ReCaptcha V3 content part.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part.FormId">
+            <summary>
+            The Id of the form that this ReCaptcha is protecting.
+            </summary>
+            <remarks>
+            If <see cref="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part.Callback"/> is specified the value of this property will be ignored.
+            If Callback is not specified a form id is required.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part.Callback">
+            <summary>
+            The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+            <remarks>
+            If left empty a form Id is required and the part will render a script that will submit the form with the given Id.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part.Action">
+            <summary>
+            An action name that will be used on server side ReCaptcha token validation. 
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part.ContentText">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Permissions">
             <summary>
@@ -139,6 +336,64 @@
         <member name="M:Griesoft.OrchardCore.ReCaptcha.TagHelpers.RecaptchaV3TagHelper.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings},Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager)">
             <inheritdoc/>
         </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel">
+            <summary>
+            The view model for <see cref="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart"/>.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.Badge">
+            <summary>
+            The position of the reCAPTCHA badge.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.TabIndex">
+            <summary>
+            The tabindex of the challenge. If other elements in your page use tabindex, it should be set to make user navigation easier.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.FormId">
+            <summary>
+            The Id of the form that this ReCaptcha is protecting.
+            </summary>
+            <remarks>
+            If <see cref="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.Callback"/> is specified the value of this property will be ignored.
+            If Callback is not specified a form id is required.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.Callback">
+            <summary>
+            The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+            <remarks>
+            If left empty a form Id is required and the part will render a script that will submit the form with the given Id.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.ExpiredCallback">
+            <summary>
+            The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.ErrorCallback">
+            <summary>
+            The name of your callback function, executed when reCAPTCHA encounters an error (usually network connectivity) 
+            and cannot continue until connectivity is restored. If you specify a function here, you are responsible for 
+            informing the user that they should retry.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.Content">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.TagType">
+            <summary>
+            The tag type that this element should be rendered as.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaInvisiblePartViewModel.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel">
             <summary>
             View model for <see cref="T:Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings"/> 
@@ -164,6 +419,84 @@
             <summary>
             Indicates whether the secret key can be modified or not.
             </summary>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel">
+            <summary>
+            The view model for <see cref="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part"/>.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.Theme">
+            <summary>
+            The color theme of the widget.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.TabIndex">
+            <summary>
+            The tabindex of the challenge. If other elements in your page use tabindex, it should be set to make user navigation easier.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.Callback">
+            <summary>
+            Optional: The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.ExpiredCallback">
+            <summary>
+            The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.ErrorCallback">
+            <summary>
+            The name of your callback function, executed when reCAPTCHA encounters an error (usually network connectivity) 
+            and cannot continue until connectivity is restored. If you specify a function here, you are responsible for 
+            informing the user that they should retry.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel.Content">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
+        </member>
+        <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel">
+            <summary>
+            The view model for <see cref="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part"/>.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.FormId">
+            <summary>
+            The Id of the form that this ReCaptcha is protecting.
+            </summary>
+            <remarks>
+            If <see cref="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.Callback"/> is specified the value of this property will be ignored.
+            If Callback is not specified a form id is required.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.Callback">
+            <summary>
+            The name of your callback function, executed when the user submits a successful response. 
+            The g-recaptcha-response token is passed to your callback.
+            </summary>
+            <remarks>
+            If left empty a form Id is required and the part will render a script that will submit the form with the given Id.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.Action">
+            <summary>
+            An action name that will be used on server side ReCaptcha token validation. 
+            </summary>
+            <remarks>
+            It is highly encouraged to make use of action names, that's why we require it. The action name is best to be unique
+            for each form that is protected by ReCaptcha V3.
+            </remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.Content">
+            <summary>
+            The content / text that will be rendered inside the submit button.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV3PartViewModel.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase">
             <summary>

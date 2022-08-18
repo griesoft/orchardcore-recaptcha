@@ -1,0 +1,53 @@
+﻿@using Griesoft.AspNetCore.ReCaptcha.TagHelpers
+@model RecaptchaInvisiblePartViewModel
+
+<div class="row mb-3">
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="FormId">
+        <label asp-for="FormId" class="form-label">@T["Form ID"]</label>
+        <input asp-for="FormId" class="form-control" />
+        <span class="hint">@T["The ID of the form element. Will be ignored if a callback is specified."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="TabIndex">
+        <label asp-for="TabIndex" class="form-label">@T["Tab Index"]</label>
+        <input asp-for="TabIndex" class="form-control" />
+        <span class="hint">@T["Optional: The tab index for this element."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="TagType">
+        <label asp-for="TagType">@T["Tag"]</label>
+        <select asp-for="TagType" asp-items="Html.GetEnumSelectList<TagType>()" class="form-select"></select>
+        <span asp-validation-for="TagType"></span>
+        <span class="hint">@T["Choose the HTML tag to render."]</span>
+    </fieldset>
+</div>
+<div class="row mb-3">
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="Callback">
+        <label asp-for="Callback" class="form-label">@T["Callback"]</label>
+        <input asp-for="Callback" class="form-control" />
+        <span class="hint">@T["The callback function name that will be executed after the reCAPTCHA challenge was successful."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="ErrorCallback">
+        <label asp-for="ErrorCallback" class="form-label">@T["Error Callback"]</label>
+        <input asp-for="ErrorCallback" class="form-control" />
+        <span class="hint">@T["Optional: An error callback function name."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="ExpiredCallback">
+        <label asp-for="ExpiredCallback" class="form-label">@T["Expired Callback"]</label>
+        <input asp-for="ExpiredCallback" class="form-control" />
+        <span class="hint">@T["Optional: The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify."]</span>
+    </fieldset>
+</div>
+<div class="mb-3">
+    <fieldset class="form-group w-50 w-md-25" asp-validation-class-for="Badge">
+        <label asp-for="Badge">@T["Badge"]</label>
+        <select asp-for="Badge" asp-items="Html.GetEnumSelectList<BadgePosition>()" class="form-select"></select>
+        <span asp-validation-for="Badge"></span>
+        <span class="hint">@T["Choose the position of the reCAPTCHA badge."]</span>
+    </fieldset>
+</div>
+<div class="mb-3">
+    <fieldset class="form-group" asp-validation-class-for="Content">
+        <label asp-for="Content" class="form-label">@T["Content"]</label>
+        <input asp-for="Content" class="form-control" />
+        <span class="hint">@T["The content / text that will be rendered inside the submit button."]</span>
+    </fieldset>
+</div>

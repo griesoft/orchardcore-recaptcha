@@ -1,0 +1,40 @@
+﻿@using Griesoft.AspNetCore.ReCaptcha.TagHelpers
+@model RecaptchaV2PartViewModel
+
+<div class="row mb-3">
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="Callback">
+        <label asp-for="Callback" class="form-label">@T["Callback"]</label>
+        <input asp-for="Callback" class="form-control" />
+        <span class="hint">@T["Optional: The callback function name that will be executed after the reCAPTCHA challenge was successful."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="ErrorCallback">
+        <label asp-for="ErrorCallback" class="form-label">@T["Error Callback"]</label>
+        <input asp-for="ErrorCallback" class="form-control" />
+        <span class="hint">@T["Optional: An error callback function name."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="ExpiredCallback">
+        <label asp-for="ExpiredCallback" class="form-label">@T["Expired Callback"]</label>
+        <input asp-for="ExpiredCallback" class="form-control" />
+        <span class="hint">@T["Optional: The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify."]</span>
+    </fieldset>
+</div>
+<div class="row mb-3">
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="TabIndex">
+        <label asp-for="TabIndex" class="form-label">@T["Tab Index"]</label>
+        <input asp-for="TabIndex" class="form-control" />
+        <span class="hint">@T["Optional: The tab index for this element."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="Theme">
+        <label asp-for="Theme">@T["Theme"]</label>
+        <select asp-for="Theme" asp-items="Html.GetEnumSelectList<Theme>()" class="form-select"></select>
+        <span asp-validation-for="Theme"></span>
+        <span class="hint">@T["Choose a theme."]</span>
+    </fieldset>
+</div>
+<div class="mb-3">
+    <fieldset class="form-group" asp-validation-class-for="Content">
+        <label asp-for="Content" class="form-label">@T["Content"]</label>
+        <input asp-for="Content" class="form-control" />
+        <span class="hint">@T["The content / text that will be rendered inside the submit button."]</span>
+    </fieldset>
+</div>

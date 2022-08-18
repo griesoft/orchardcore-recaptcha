@@ -1,0 +1,26 @@
+﻿@model RecaptchaV3PartViewModel
+
+<div class="row mb-3">
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="FormId">
+        <label asp-for="FormId" class="form-label">@T["Form ID"]</label>
+        <input asp-for="FormId" type="text" class="form-control" />
+        <span class="hint">@T["The ID of the form element. Will be ignored if a callback is specified."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="Callback">
+        <label asp-for="Callback" class="form-label">@T["Callback"]</label>
+        <input asp-for="Callback" type="text" class="form-control" />
+        <span class="hint">@T["The callback function name that will be invoked after the captcha challenge was successful."]</span>
+    </fieldset>
+    <fieldset class="form-group col-12 col-md-6 col-xl-4" asp-validation-class-for="Action">
+        <label asp-for="Action" class="form-label">@T["Action"]</label>
+        <input asp-for="Action" type="Text" class="form-control" />
+        <span class="hint">@T["The action name for backend validation."]</span>
+    </fieldset>
+</div>
+<div class="mb-3">
+    <fieldset class="form-group" asp-validation-class-for="Content">
+        <label asp-for="Content" class="form-label">@T["Content"]</label>
+        <input asp-for="Content" type="text" class="form-control" />
+        <span class="hint">@T["The content / text that will be rendered inside the submit button."]</span>
+    </fieldset>
+</div>
