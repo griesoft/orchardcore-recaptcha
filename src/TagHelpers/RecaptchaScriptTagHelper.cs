@@ -36,11 +36,11 @@ namespace Griesoft.OrchardCore.ReCaptcha.TagHelpers
         {
             base.Process(context, output);
 
-            var script = new HtmlString(RenderTagHelperOutput(output));
+            var script = RenderTagHelperOutput(output);
 
-            if (!_resourceManager.GetRegisteredFootScripts().Contains(script))
+            if (!_resourceManager.GetRegisteredFootScripts().Any(item => item.ToString() == script))
             {
-                _resourceManager.RegisterFootScript(new HtmlString(RenderTagHelperOutput(output)));
+                _resourceManager.RegisterFootScript(new HtmlString(script));
             }
 
             output.SuppressOutput();

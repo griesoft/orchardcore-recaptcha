@@ -273,6 +273,7 @@
             </summary>
             <param name="siteService"></param>
             <param name="dataProtectionProvider"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration.Configure(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings)">
             <inheritdoc />
