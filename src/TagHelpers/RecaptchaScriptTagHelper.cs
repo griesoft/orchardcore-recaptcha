@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
 using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 
 namespace Griesoft.OrchardCore.ReCaptcha.TagHelpers
@@ -35,7 +36,12 @@ namespace Griesoft.OrchardCore.ReCaptcha.TagHelpers
         {
             base.Process(context, output);
 
-            _resourceManager.RegisterFootScript(new HtmlString(RenderTagHelperOutput(output)));
+            var script = RenderTagHelperOutput(output);
+
+            if (!_resourceManager.GetRegisteredFootScripts().Any(item => item.ToString() == script))
+            {
+                _resourceManager.RegisterFootScript(new HtmlString(script));
+            }
 
             output.SuppressOutput();
         }

@@ -19,6 +19,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
         /// </summary>
         /// <param name="siteService"></param>
         /// <param name="dataProtectionProvider"></param>
+        /// <param name="logger"></param>
         public RecaptchaSettingsConfiguration(ISiteService siteService, IDataProtectionProvider dataProtectionProvider,
             ILogger<RecaptchaSettingsConfiguration> logger)
         {
