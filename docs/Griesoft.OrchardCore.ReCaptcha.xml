@@ -421,6 +421,24 @@
             Indicates whether the secret key can be modified or not.
             </summary>
         </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.UseProxy">
+            <summary>
+            Whether to use a proxy server or not for reCaptcha validation.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.ProxyAddress">
+            <summary>
+            Proxy server address to be used on the HTTP client.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.BypassOnLocal">
+            <summary>
+            Indicates whether to bypass proxy for local addresses.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel">
             <summary>
             The view model for <see cref="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part"/>.

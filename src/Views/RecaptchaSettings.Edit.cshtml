@@ -1,19 +1,39 @@
 ﻿@using Griesoft.OrchardCore.ReCaptcha.ViewModels
 @model RecaptchaSettingsViewModel
 
-<div class="form-group" asp-validation-class-for="SiteKey">
+<div class="form-group mb-3" asp-validation-class-for="SiteKey">
     <label asp-for="SiteKey">@T["Site Key"]</label>
     <input asp-for="SiteKey" class="form-control" type="text" />
     <span asp-validation-for="SiteKey"></span>
     <span class="hint">@T["The reCAPTCHA site key."]</span>
 </div>
-<div class="form-group" asp-validation-class-for="SecretKey">
+<div class="form-group mb-3" asp-validation-class-for="SecretKey">
     <label asp-for="SecretKey">@T["Secret Key"]</label>
     <input asp-for="SecretKey" class="form-control" type="text" />
     <span asp-validation-for="SecretKey"></span>
     <span class="hint">@T["The reCAPTCHA secret key."]</span>
 </div>
-<p class="alert alert-info" role="alert">@T["Acquire your API key pair at the reCAPTCHA admin page."] <a href="http://www.google.com/recaptcha/admin" target="_blank">@T["Get them here"]</a></p>
+<h3 class="mb-3">@T["Configure Proxy"]</h3>
+<div class="mb-3">
+    <div class="w-sm-75 w-md-50 w-lg-25 pe-md-3">
+        <input asp-for="UseProxy" type="checkbox" class="form-check-input content-preview-select" checked="@Model.UseProxy" />
+        <label asp-for="UseProxy" class="form-check-label">@T["Use Proxy"]</label>
+    </div>
+    <span class="hint">@T["Check to make validation request over a proxy."]</span>
+</div>
+<div class="form-group mb-3" asp-validation-class-for="ProxyAddress">
+    <label asp-for="ProxyAddress">@T["Proxy Address"]</label>
+    <input asp-for="ProxyAddress" class="form-control" type="text" />
+    <span asp-validation-for="ProxyAddress"></span>
+</div>
+<div class="mb-3">
+    <div class="w-sm-75 w-md-50 w-lg-25 pe-md-3">
+        <input asp-for="BypassOnLocal" type="checkbox" class="form-check-input content-preview-select" checked="@Model.BypassOnLocal" />
+        <label asp-for="BypassOnLocal" class="form-check-label">@T["Bypass On Local"]</label>
+    </div>
+    <span class="hint">@T["Check to bypass the proxy on local requests."]</span>
+</div>
+<p class="alert alert-info" role="alert">@T["You may acquire your API key pair at the reCAPTCHA admin page."] <a href="http://www.google.com/recaptcha/admin" target="_blank">@T["Get them here"]</a></p>
 @if (!Model.CanEditSiteKey || !Model.CanEditSecretKey)
 {
     <p class="alert alert-warning">@T["Keys that are set up in the <code>appsettings.json</code> always take precedence and can not be overridden."]</p>

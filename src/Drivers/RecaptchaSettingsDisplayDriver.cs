@@ -67,6 +67,9 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                 viewModel.CanEditSecretKey = TryDecryptSecret(section.SecretKey, out var decrypted) && CanEditSecretKey(decrypted);
                 viewModel.SiteKey = section.SiteKey;
                 viewModel.SecretKey = decrypted;
+                viewModel.UseProxy = section.UseProxy ?? false;
+                viewModel.ProxyAddress = section.ProxyAddress;
+                viewModel.BypassOnLocal = section.BypassOnLocal;
             })
             .Location("Content:1")
             .OnGroup(EditorGroupId);
@@ -102,6 +105,10 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                     var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
                     section.SecretKey = protector.Protect(viewModel.SecretKey);
                 }
+
+                section.UseProxy = viewModel.UseProxy;
+                section.ProxyAddress = viewModel.ProxyAddress;
+                section.BypassOnLocal = viewModel.BypassOnLocal;
 
                 await _shellHost.ReleaseShellContextAsync(_shellSettings);
             }
