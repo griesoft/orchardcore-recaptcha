@@ -110,7 +110,7 @@
             <param name="contentDefinitionManager"></param>
             <param name="stringLocalizer"></param>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.Create">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.CreateAsync">
             <summary>
             
             </summary>

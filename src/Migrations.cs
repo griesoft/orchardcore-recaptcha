@@ -3,6 +3,7 @@ using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha
 {
@@ -27,31 +28,31 @@ namespace Griesoft.OrchardCore.ReCaptcha
         /// 
         /// </summary>
         /// <returns></returns>
-        public int Create()
+        public async Task<int> CreateAsync()
         {
-            _contentDefinitionManager.AlterPartDefinition(nameof(RecaptchaV2Part), builder => builder
+            await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(RecaptchaV2Part), builder => builder
                 .WithDisplayName("ReCaptcha V2")
                 .WithDescription(T["Adds a ReCaptcha V2 submit button element to your content item."]));
 
-            _contentDefinitionManager.AlterTypeDefinition("RecaptchaV2", type => type
+            await _contentDefinitionManager.AlterTypeDefinitionAsync("RecaptchaV2", type => type
                 .WithPart(nameof(RecaptchaV2Part))
                 .Stereotype("Widget"));
 
 
-            _contentDefinitionManager.AlterPartDefinition(nameof(RecaptchaInvisiblePart), builder => builder
+            await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(RecaptchaInvisiblePart), builder => builder
                 .WithDisplayName("ReCaptcha Invisible")
                 .WithDescription(T["Adds a ReCaptcha invisible element to your content item."]));
 
-            _contentDefinitionManager.AlterTypeDefinition("RecaptchaInvisible", type => type
+            await _contentDefinitionManager.AlterTypeDefinitionAsync("RecaptchaInvisible", type => type
                 .WithPart(nameof(RecaptchaInvisiblePart))
                 .Stereotype("Widget"));
 
 
-            _contentDefinitionManager.AlterPartDefinition(nameof(RecaptchaV3Part), builder => builder
+            await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(RecaptchaV3Part), builder => builder
                 .WithDisplayName("ReCaptcha V3")
                 .WithDescription(T["Adds a ReCaptcha V3 submit button element to your content item."]));
 
-            _contentDefinitionManager.AlterTypeDefinition("RecaptchaV3", type => type
+            await _contentDefinitionManager.AlterTypeDefinitionAsync("RecaptchaV3", type => type
                 .WithPart(nameof(RecaptchaV3Part))
                 .Stereotype("Widget"));
 
