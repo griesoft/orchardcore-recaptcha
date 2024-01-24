@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using OrchardCore.Workflows.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Workflows
@@ -39,6 +41,12 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows
         }
 
         /// <inheritdoc />
+        public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+        {
+            return Outcomes(S["Done"], S["Valid"], S["Invalid"], S["Invalid Score"]);
+        }
+
+        /// <inheritdoc />
         public override string Name => nameof(ValidateRecaptchaV3Task);
 
         /// <inheritdoc />
@@ -53,6 +61,25 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows
         public WorkflowExpression<string?> Action
         {
             get => GetProperty(() => new WorkflowExpression<string?>());
+            set => SetProperty(value);
+        }
+
+        /// <summary>
+        /// The threshold that the score value should not fall below.
+        /// </summary>
+        public double ScoreThreshold
+        {
+            get => GetProperty(() => 0.8);
+            set => SetProperty(value);
+        }
+
+        /// <summary>
+        /// If true the task will return the 'Invalid' outcome, in case that the score falls below the <see cref="ScoreThreshold"/>.
+        /// Otherwise the 'Valid' outcome will be returned in any case.
+        /// </summary>
+        public bool FailOnBadScore
+        {
+            get => GetProperty(() => false);
             set => SetProperty(value);
         }
 
@@ -73,9 +100,16 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows
                 return Outcomes("Invalid", "Done");
             }
 
+            // Add score to workflow properties
             if (response.Score != null)
             {
                 workflowContext.Properties["RecaptchaScore"] = response.Score.Value;
+            }
+
+            if (response.Score == null || response.Score < ScoreThreshold)
+            {
+                TryAddModelError(S["reCAPTCHA score was below the threshold."]);
+                return Outcomes(FailOnBadScore ? "Invalid" : "Valid", "Invalid Score", "Done");
             }
 
             return Outcomes("Valid", "Done");

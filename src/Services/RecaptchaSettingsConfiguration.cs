@@ -52,6 +52,20 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
                     _logger.LogError("The SecretKey could not be decrypted. It may have been encrypted using a different key.");
                 }
             }
+
+            if (options.UseProxy == null)
+            {
+                options.UseProxy = settings.UseProxy;
+            }
+
+            if (string.IsNullOrEmpty(options.ProxyAddress))
+            {
+                options.ProxyAddress = settings.ProxyAddress;
+            }
+
+            // We can not know if this value was configured via app settings.
+            // So we will always use the value specified in the settings.
+            options.BypassOnLocal = settings.BypassOnLocal;
         }
     }
 }

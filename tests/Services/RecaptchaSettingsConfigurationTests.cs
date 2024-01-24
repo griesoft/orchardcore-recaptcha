@@ -3,7 +3,6 @@ using Griesoft.OrchardCore.ReCaptcha.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.WebUtilities;
 using Moq;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Settings;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,8 +54,8 @@ namespace Griesoft.OrchardCore.ReCaptcha.Tests.Services
         private ISiteService CreateSiteServiceMock(string settingsSiteKey, string settingsSecretKey)
         {
             var siteMock = new Mock<ISite>();
-            siteMock.SetupGet(site => site.Properties)
-                .Returns(JObject.FromObject(new { RecaptchaSettings = new RecaptchaSettings() { SiteKey = settingsSiteKey, SecretKey = settingsSecretKey } }));
+            siteMock.Setup(site => site.As<RecaptchaSettings>())
+                .Returns(new RecaptchaSettings() { SiteKey = settingsSiteKey, SecretKey = settingsSecretKey });
             var siteServiceMock = new Mock<ISiteService>();
             siteServiceMock.Setup(service => service.GetSiteSettingsAsync())
                 .Returns(Task.FromResult(siteMock.Object));

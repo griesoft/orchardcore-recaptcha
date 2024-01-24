@@ -110,7 +110,7 @@
             <param name="contentDefinitionManager"></param>
             <param name="stringLocalizer"></param>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.Create">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Migrations.CreateAsync">
             <summary>
             
             </summary>
@@ -421,6 +421,24 @@
             Indicates whether the secret key can be modified or not.
             </summary>
         </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.UseProxy">
+            <summary>
+            Whether to use a proxy server or not for reCaptcha validation.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.ProxyAddress">
+            <summary>
+            Proxy server address to be used on the HTTP client.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.BypassOnLocal">
+            <summary>
+            Indicates whether to bypass proxy for local addresses.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <inheritdoc />
+        </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaV2PartViewModel">
             <summary>
             The view model for <see cref="T:Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part"/>.
@@ -517,6 +535,7 @@
             <param name="recaptchaService"></param>
             <param name="httpContextAccessor"></param>
             <param name="updateModelAccessor"></param>
+            <param name="options"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.Activities.ValidateRecaptchaTaskBase.GetPossibleOutcomes(OrchardCore.Workflows.Models.WorkflowExecutionContext,OrchardCore.Workflows.Models.ActivityContext)">
             <inheritdoc />
@@ -562,6 +581,7 @@
             <param name="recaptchaService"></param>
             <param name="httpContextAccessor"></param>
             <param name="updateModelAccessor"></param>
+            <param name="options"></param>
         </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV2Task.Name">
             <inheritdoc />
@@ -594,6 +614,9 @@
             <param name="expressionEvaluator"></param>
             <param name="options"></param>
         </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.GetPossibleOutcomes(OrchardCore.Workflows.Models.WorkflowExecutionContext,OrchardCore.Workflows.Models.ActivityContext)">
+            <inheritdoc />
+        </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.Name">
             <inheritdoc />
         </member>
@@ -606,6 +629,17 @@
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.Action">
             <summary>
             The reCAPTCHA V3 action name of the challenge.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.ScoreThreshold">
+            <summary>
+            The threshold that the score value should not fall below.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.FailOnBadScore">
+            <summary>
+            If true the task will return the 'Invalid' outcome, in case that the score falls below the <see cref="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.ScoreThreshold"/>.
+            Otherwise the 'Valid' outcome will be returned in any case.
             </summary>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3Task.ExecuteAsync(OrchardCore.Workflows.Models.WorkflowExecutionContext,OrchardCore.Workflows.Models.ActivityContext)">
@@ -641,6 +675,18 @@
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel.Action">
             <summary>
             The reCAPTCHA V3 action name of the challenge.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel.ScoreThreshold">
+            <summary>
+            The threshold that the score value should not fall below.
+            </summary>
+            <remarks>Must be in the range of 0-1. The default value is 0.8.</remarks>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel.FailOnBadScore">
+            <summary>
+            If true the task will return the 'Invalid' outcome, in case that the score falls below the <see cref="P:Griesoft.OrchardCore.ReCaptcha.Workflows.ValidateRecaptchaV3TaskViewModel.ScoreThreshold"/>.
+            Otherwise the 'Valid' outcome will be returned in any case.
             </summary>
         </member>
     </members>
