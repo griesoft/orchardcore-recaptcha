@@ -1,12 +1,11 @@
-using Griesoft.OrchardCore.ReCaptcha;
 using OrchardCore.Modules.Manifest;
 using System.Reflection;
 
 [assembly: Module(
     Name = "ReCaptcha",
-    Author = "Griesinger Software",
+    Author = "Griesoft",
     Website = "https://griesoft.com",
-    Version = "0.8.0",
+    Version = "1.0.0",
     Tags = new string[] { "security", "forms", "recaptchav2", "recaptchav3" }
 )]
 
@@ -15,4 +14,4 @@ using System.Reflection;
     Name = "ReCaptcha",
     Description = "A Google reCAPTCHA module provided to you by the Griesoft team.",
     Category = "Security"
-)] 
+)]
