@@ -35,6 +35,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows.Activities
         /// <param name="recaptchaService"></param>
         /// <param name="httpContextAccessor"></param>
         /// <param name="updateModelAccessor"></param>
+        /// <param name="options"></param>
         public ValidateRecaptchaTaskBase(IStringLocalizer<ValidateRecaptchaV2Task> localizer, IRecaptchaService recaptchaService,
             IHttpContextAccessor httpContextAccessor, IUpdateModelAccessor updateModelAccessor, IOptionsMonitor<RecaptchaOptions> options)
         {

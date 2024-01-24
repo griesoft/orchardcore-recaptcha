@@ -12,12 +12,16 @@ namespace Griesoft.OrchardCore.ReCaptcha.Workflows
         protected override void EditActivity(ValidateRecaptchaV3Task source, ValidateRecaptchaV3TaskViewModel model)
         {
             model.Action = source.Action.Expression;
+            model.ScoreThreshold = source.ScoreThreshold;
+            model.FailOnBadScore = source.FailOnBadScore;
         }
 
         /// <inheritdoc />
         protected override void UpdateActivity(ValidateRecaptchaV3TaskViewModel model, ValidateRecaptchaV3Task activity)
         {
             activity.Action = new WorkflowExpression<string?>(model.Action);
+            activity.ScoreThreshold = model.ScoreThreshold;
+            activity.FailOnBadScore = model.FailOnBadScore;
         }
     }
 }
