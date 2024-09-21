@@ -1,7 +1,6 @@
 ﻿using Griesoft.OrchardCore.ReCaptcha.Drivers;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Navigation;
-using System;
 using System.Threading.Tasks;
 
 namespace Griesoft.OrchardCore.ReCaptcha
@@ -9,7 +8,7 @@ namespace Griesoft.OrchardCore.ReCaptcha
     /// <summary>
     /// Recaptcha settings admin menu navigation provider.
     /// </summary>
-    public class AdminMenu : INavigationProvider
+    public class AdminMenu : AdminNavigationProvider
     {
         private readonly IStringLocalizer S;
 
@@ -23,13 +22,8 @@ namespace Griesoft.OrchardCore.ReCaptcha
         }
 
         /// <inheritdoc />
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        protected override ValueTask BuildAsync(NavigationBuilder builder)
         {
-            if (!string.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
-            {
-                return Task.CompletedTask;
-            }
-
             builder.Add(S["Configuration"], configuration => configuration
                 .Add(S["Settings"], settings => settings
                     .Add(S["ReCaptcha"], S["ReCaptcha"], demo => demo
@@ -39,7 +33,7 @@ namespace Griesoft.OrchardCore.ReCaptcha
                         .LocalNav()
                     )));
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }

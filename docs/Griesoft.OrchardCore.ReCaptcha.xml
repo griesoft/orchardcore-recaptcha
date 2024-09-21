@@ -15,7 +15,7 @@
             </summary>
             <param name="stringLocalizer"></param>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildNavigationAsync(System.String,OrchardCore.Navigation.NavigationBuilder)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildAsync(OrchardCore.Navigation.NavigationBuilder)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver">
@@ -23,13 +23,13 @@
             The ReCaptcha invisible content part display driver.
             </summary>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart,OrchardCore.ContentManagement.Display.Models.BuildPartDisplayContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart,OrchardCore.ContentManagement.Display.Models.BuildPartEditorContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaInvisiblePartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaInvisiblePart,OrchardCore.ContentManagement.Display.Models.UpdatePartEditorContext)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver">
@@ -42,21 +42,23 @@
             The settings editor group ID.
             </summary>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.IShellHost,OrchardCore.Environment.Shell.ShellSettings,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings})">
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.SettingsGroupId">
+            <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.IShellReleaseManager,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings})">
             <summary>
             
             </summary>
             <param name="authorizationService"></param>
             <param name="httpContext"></param>
             <param name="dataProtectionProvider"></param>
-            <param name="shellHost"></param>
-            <param name="shellSettings"></param>
+            <param name="shellReleaseManager"></param>
             <param name="optionsMonitor"></param>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditAsync(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditAsync(OrchardCore.Settings.ISite,Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.UpdateAsync(Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.UpdateAsync(OrchardCore.Settings.ISite,Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.UpdateEditorContext)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver">
@@ -64,13 +66,13 @@
             The ReCaptcha V2 content part display driver.
             </summary>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part,OrchardCore.ContentManagement.Display.Models.BuildPartDisplayContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part,OrchardCore.ContentManagement.Display.Models.BuildPartEditorContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV2Part,OrchardCore.ContentManagement.Display.Models.UpdatePartEditorContext)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver">
@@ -78,13 +80,13 @@
             The ReCaptcha V3 content part display driver.
             </summary>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Display(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part,OrchardCore.ContentManagement.Display.Models.BuildPartDisplayContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.Edit(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part,OrchardCore.ContentManagement.Display.Models.BuildPartEditorContext)">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV3PartDisplayDriver.UpdateAsync(Griesoft.OrchardCore.ReCaptcha.Models.RecaptchaV3Part,OrchardCore.ContentManagement.Display.Models.UpdatePartEditorContext)">
             <inheritdoc />
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Enums.TagType">

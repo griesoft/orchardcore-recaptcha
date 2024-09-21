@@ -1,7 +1,7 @@
 ﻿using Griesoft.OrchardCore.ReCaptcha.Models;
 using Griesoft.OrchardCore.ReCaptcha.ViewModels;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.Views;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
     public class RecaptchaV3PartDisplayDriver : ContentPartDisplayDriver<RecaptchaV3Part>
     {
         /// <inheritdoc />
-        public override IDisplayResult Display(RecaptchaV3Part part)
+        public override IDisplayResult Display(RecaptchaV3Part part, BuildPartDisplayContext context)
         {
             return Initialize<RecaptchaV3PartViewModel>(nameof(RecaptchaV3Part), model =>
             {
@@ -27,7 +27,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override IDisplayResult Edit(RecaptchaV3Part part)
+        public override IDisplayResult Edit(RecaptchaV3Part part, BuildPartEditorContext context)
         {
             return Initialize<RecaptchaV3PartViewModel>($"{nameof(RecaptchaV3Part)}_Edit", model =>
             {
@@ -39,21 +39,21 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override async Task<IDisplayResult> UpdateAsync(RecaptchaV3Part part, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(RecaptchaV3Part part, UpdatePartEditorContext context)
         {
             _ = part ?? throw new ArgumentNullException(nameof(part));
-            _ = updater ?? throw new ArgumentNullException(nameof(updater));
+            _ = context ?? throw new ArgumentNullException(nameof(context));
 
             var viewmodel = new RecaptchaV3PartViewModel();
 
-            await updater.TryUpdateModelAsync(viewmodel, Prefix);
+            await context.Updater.TryUpdateModelAsync(viewmodel, Prefix);
 
             part.FormId = viewmodel.FormId;
             part.Callback = viewmodel.Callback;
             part.Action = viewmodel.Action;
             part.ContentText = viewmodel.Content;
 
-            return Edit(part);
+            return Edit(part, context);
         }
     }
 }

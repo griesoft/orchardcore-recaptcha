@@ -1,7 +1,7 @@
 ﻿using Griesoft.OrchardCore.ReCaptcha.Models;
 using Griesoft.OrchardCore.ReCaptcha.ViewModels;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.Views;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
     public class RecaptchaInvisiblePartDisplayDriver : ContentPartDisplayDriver<RecaptchaInvisiblePart>
     {
         /// <inheritdoc />
-        public override IDisplayResult Display(RecaptchaInvisiblePart part)
+        public override IDisplayResult Display(RecaptchaInvisiblePart part, BuildPartDisplayContext context)
         {
             return Initialize<RecaptchaInvisiblePartViewModel>(nameof(RecaptchaInvisiblePart), model =>
             {
@@ -31,7 +31,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override IDisplayResult Edit(RecaptchaInvisiblePart part)
+        public override IDisplayResult Edit(RecaptchaInvisiblePart part, BuildPartEditorContext context)
         {
             return Initialize<RecaptchaInvisiblePartViewModel>($"{nameof(RecaptchaInvisiblePart)}_Edit", model =>
             {
@@ -47,14 +47,14 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override async Task<IDisplayResult> UpdateAsync(RecaptchaInvisiblePart part, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(RecaptchaInvisiblePart part, UpdatePartEditorContext context)
         {
             _ = part ?? throw new ArgumentNullException(nameof(part));
-            _ = updater ?? throw new ArgumentNullException(nameof(updater));
+            _ = context ?? throw new ArgumentNullException(nameof(context));
 
             var viewmodel = new RecaptchaInvisiblePartViewModel();
 
-            await updater.TryUpdateModelAsync(viewmodel, Prefix);
+            await context.Updater.TryUpdateModelAsync(viewmodel, Prefix);
 
             part.FormId = viewmodel.FormId;
             part.Callback = viewmodel.Callback;

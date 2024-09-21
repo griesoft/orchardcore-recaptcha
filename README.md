@@ -7,7 +7,7 @@ An Orchard Core reCAPTCHA module that is based on our [ASP.NET Core reCAPTCHA](h
 [![NuGet](https://badgen.net/nuget/v/Griesoft.OrchardCore.ReCaptcha)](https://www.nuget.org/packages/Griesoft.OrchardCore.ReCaptcha)
 [![GitHub Release](https://badgen.net/github/release/griesoft/orchardcore-recaptcha)](https://github.com/griesoft/orchardcore-recaptcha/releases)
 
-_The latest release build of this module is compatible with Orchard Core version `1.8.*`._
+_The latest release build of this module is compatible with Orchard Core version `2.0.0`._
 
 ## Installation
 

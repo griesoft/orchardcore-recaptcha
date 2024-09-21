@@ -14,7 +14,6 @@ using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
-using OrchardCore.Settings;
 
 namespace Griesoft.OrchardCore.ReCaptcha
 {
@@ -46,7 +45,8 @@ namespace Griesoft.OrchardCore.ReCaptcha
 
             services.Configure<RecaptchaSettings>(_shellConfiguration.GetSection(RecaptchaServiceConstants.SettingsSectionKey));
             services.AddTransient<IConfigureOptions<RecaptchaSettings>, RecaptchaSettingsConfiguration>();
-            services.AddScoped<IDisplayDriver<ISite>, RecaptchaSettingsDisplayDriver>();
+
+            services.AddSiteDisplayDriver<RecaptchaSettingsDisplayDriver>();
 
             services.AddContentPart<RecaptchaV2Part>()
                 .UseDisplayDriver<RecaptchaV2PartDisplayDriver>();
