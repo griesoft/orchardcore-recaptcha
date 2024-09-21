@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using OrchardCore.Entities;
 using OrchardCore.Settings;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Services
@@ -31,9 +30,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
         /// <inheritdoc />
         public void Configure(RecaptchaSettings options)
         {
-            var settings = _siteService.GetSiteSettingsAsync()
-                .GetAwaiter().GetResult()
-                .As<RecaptchaSettings>();
+            var settings = _siteService.GetSettingsAsync<RecaptchaSettings>().GetAwaiter().GetResult();
 
             if (string.IsNullOrEmpty(options.SiteKey))
             {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

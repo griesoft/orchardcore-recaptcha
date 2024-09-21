@@ -18,7 +18,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
     /// <summary>
     /// The display driver for the reCAPTCHA settings editor group.
     /// </summary>
-    public class RecaptchaSettingsDisplayDriver : SectionDisplayDriver<ISite, RecaptchaSettings>
+    public class RecaptchaSettingsDisplayDriver : SiteDisplayDriver<RecaptchaSettings>
     {
         /// <summary>
         /// The settings editor group ID.
@@ -28,9 +28,11 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         private readonly IAuthorizationService _authorizationService;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IDataProtectionProvider _dataProtectionProvider;
-        private readonly IShellHost _shellHost;
-        private readonly ShellSettings _shellSettings;
         private readonly RecaptchaSettings _settings;
+        private readonly IShellReleaseManager _shellReleaseManager;
+
+        /// <inheritdoc />
+        protected override string SettingsGroupId => EditorGroupId;
 
         /// <summary>
         /// 
@@ -38,23 +40,21 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         /// <param name="authorizationService"></param>
         /// <param name="httpContext"></param>
         /// <param name="dataProtectionProvider"></param>
-        /// <param name="shellHost"></param>
-        /// <param name="shellSettings"></param>
+        /// <param name="shellReleaseManager"></param>
         /// <param name="optionsMonitor"></param>
         public RecaptchaSettingsDisplayDriver(IAuthorizationService authorizationService, IHttpContextAccessor httpContext,
-            IDataProtectionProvider dataProtectionProvider, IShellHost shellHost, ShellSettings shellSettings, 
+            IDataProtectionProvider dataProtectionProvider, IShellReleaseManager shellReleaseManager,
             IOptionsMonitor<RecaptchaSettings> optionsMonitor)
         {
             _authorizationService = authorizationService;
             _httpContext = httpContext;
             _dataProtectionProvider = dataProtectionProvider;
-            _shellHost = shellHost;
-            _shellSettings = shellSettings;
+            _shellReleaseManager = shellReleaseManager;
             _settings = optionsMonitor.CurrentValue;
         }
 
         /// <inheritdoc />
-        public override async Task<IDisplayResult?> EditAsync(RecaptchaSettings section, BuildEditorContext context)
+        public override async Task<IDisplayResult?> EditAsync(ISite model, RecaptchaSettings section, BuildEditorContext context)
         {
             if (!await IsAuthorizedToManageRecaptchaSettingsAsync())
             {
@@ -72,48 +72,45 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                 viewModel.BypassOnLocal = section.BypassOnLocal;
             })
             .Location("Content:1")
-            .OnGroup(EditorGroupId);
+            .OnGroup(SettingsGroupId);
         }
         /// <inheritdoc />
-        public override async Task<IDisplayResult?> UpdateAsync(RecaptchaSettings section, BuildEditorContext context)
+        public override async Task<IDisplayResult?> UpdateAsync(ISite model, RecaptchaSettings section, UpdateEditorContext context)
         {
-            if (context.GroupId == EditorGroupId)
+            if (!await IsAuthorizedToManageRecaptchaSettingsAsync())
             {
-                if (!await IsAuthorizedToManageRecaptchaSettingsAsync())
-                {
-                    return null;
-                }
-
-                var viewModel = new RecaptchaSettingsViewModel();
-
-                await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
-
-                if (CanEditSiteKey(section))
-                {
-                    section.SiteKey = viewModel.SiteKey ?? string.Empty;
-                }
-
-                // Reset the secret here
-                if (string.IsNullOrWhiteSpace(viewModel.SecretKey) && !string.IsNullOrWhiteSpace(section.SecretKey))
-                {
-                    section.SecretKey = string.Empty;
-                }
-                // Only set the secret if not specified in appsettings.json
-                else if (!string.IsNullOrWhiteSpace(viewModel.SecretKey) && 
-                    TryDecryptSecret(section.SecretKey, out var decrypted) && CanEditSecretKey(decrypted))
-                {
-                    var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
-                    section.SecretKey = protector.Protect(viewModel.SecretKey);
-                }
-
-                section.UseProxy = viewModel.UseProxy;
-                section.ProxyAddress = viewModel.ProxyAddress;
-                section.BypassOnLocal = viewModel.BypassOnLocal;
-
-                await _shellHost.ReleaseShellContextAsync(_shellSettings);
+                return null;
             }
 
-            return await EditAsync(section, context);
+            var viewModel = new RecaptchaSettingsViewModel();
+
+            await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
+
+            if (CanEditSiteKey(section))
+            {
+                section.SiteKey = viewModel.SiteKey ?? string.Empty;
+            }
+
+            // Reset the secret here
+            if (string.IsNullOrWhiteSpace(viewModel.SecretKey) && !string.IsNullOrWhiteSpace(section.SecretKey))
+            {
+                section.SecretKey = string.Empty;
+            }
+            // Only set the secret if not specified in appsettings.json
+            else if (!string.IsNullOrWhiteSpace(viewModel.SecretKey) &&
+                TryDecryptSecret(section.SecretKey, out var decrypted) && CanEditSecretKey(decrypted))
+            {
+                var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
+                section.SecretKey = protector.Protect(viewModel.SecretKey);
+            }
+
+            section.UseProxy = viewModel.UseProxy;
+            section.ProxyAddress = viewModel.ProxyAddress;
+            section.BypassOnLocal = viewModel.BypassOnLocal;
+
+            _shellReleaseManager.RequestRelease();
+
+            return await EditAsync(model, section, context);
         }
 
         private async Task<bool> IsAuthorizedToManageRecaptchaSettingsAsync()
@@ -133,7 +130,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                     var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
                     decrypted = protector.Unprotect(encrypted);
                 }
-                catch 
+                catch
                 {
                     return false;
                 }

@@ -1,7 +1,7 @@
 ﻿using Griesoft.OrchardCore.ReCaptcha.Models;
 using Griesoft.OrchardCore.ReCaptcha.ViewModels;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.Views;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
     public class RecaptchaV2PartDisplayDriver : ContentPartDisplayDriver<RecaptchaV2Part>
     {
         /// <inheritdoc />
-        public override IDisplayResult Display(RecaptchaV2Part part)
+        public override IDisplayResult Display(RecaptchaV2Part part, BuildPartDisplayContext context)
         {
             return Initialize<RecaptchaV2PartViewModel>(nameof(RecaptchaV2Part), model =>
             {
@@ -29,7 +29,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override IDisplayResult Edit(RecaptchaV2Part part)
+        public override IDisplayResult Edit(RecaptchaV2Part part, BuildPartEditorContext context)
         {
             return Initialize<RecaptchaV2PartViewModel>($"{nameof(RecaptchaV2Part)}_Edit", model =>
             {
@@ -43,14 +43,14 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
 
         /// <inheritdoc />
-        public override async Task<IDisplayResult> UpdateAsync(RecaptchaV2Part part, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(RecaptchaV2Part part, UpdatePartEditorContext context)
         {
             _ = part ?? throw new ArgumentNullException(nameof(part));
-            _ = updater ?? throw new ArgumentNullException(nameof(updater));
+            _ = context ?? throw new ArgumentNullException(nameof(context));
 
             var viewmodel = new RecaptchaV2PartViewModel();
 
-            await updater.TryUpdateModelAsync(viewmodel, Prefix);
+            await context.Updater.TryUpdateModelAsync(viewmodel, Prefix);
 
             part.Callback = viewmodel.Callback;
             part.Theme = viewmodel.Theme;
@@ -59,7 +59,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             part.TabIndex = viewmodel.TabIndex;
             part.ContentText = viewmodel.Content;
 
-            return Edit(part);
+            return Edit(part, context);
         }
     }
 }
