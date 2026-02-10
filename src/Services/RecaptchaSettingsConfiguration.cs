@@ -1,15 +1,22 @@
 ﻿using Griesoft.AspNetCore.ReCaptcha.Configuration;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Settings;
 
 namespace Griesoft.OrchardCore.ReCaptcha.Services
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Configures <see cref="RecaptchaSettings"/> with tenant-specific settings from the shell configuration
+    /// and OrchardCore's site settings, supporting multi-tenancy correctly.
+    /// Shell configuration values (appsettings.json) take priority over site settings.
+    /// </summary>
     public class RecaptchaSettingsConfiguration : IConfigureOptions<RecaptchaSettings>
     {
         private readonly ISiteService _siteService;
+        private readonly IShellConfiguration _shellConfiguration;
         private readonly IDataProtectionProvider _dataProtectionProvider;
         private readonly ILogger _logger;
 
@@ -17,12 +24,14 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
         /// 
         /// </summary>
         /// <param name="siteService"></param>
+        /// <param name="shellConfiguration"></param>
         /// <param name="dataProtectionProvider"></param>
         /// <param name="logger"></param>
-        public RecaptchaSettingsConfiguration(ISiteService siteService, IDataProtectionProvider dataProtectionProvider,
-            ILogger<RecaptchaSettingsConfiguration> logger)
+        public RecaptchaSettingsConfiguration(ISiteService siteService, IShellConfiguration shellConfiguration,
+            IDataProtectionProvider dataProtectionProvider, ILogger<RecaptchaSettingsConfiguration> logger)
         {
             _siteService = siteService;
+            _shellConfiguration = shellConfiguration;
             _dataProtectionProvider = dataProtectionProvider;
             _logger = logger;
         }
@@ -30,6 +39,8 @@ namespace Griesoft.OrchardCore.ReCaptcha.Services
         /// <inheritdoc />
         public void Configure(RecaptchaSettings options)
         {
+            _shellConfiguration.GetSection(RecaptchaServiceConstants.SettingsSectionKey).Bind(options);
+
             var settings = _siteService.GetSettingsAsync<RecaptchaSettings>().GetAwaiter().GetResult();
 
             if (string.IsNullOrEmpty(options.SiteKey))

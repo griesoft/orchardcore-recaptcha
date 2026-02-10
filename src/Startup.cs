@@ -10,7 +10,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Handlers;
-using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
@@ -20,17 +19,6 @@ namespace Griesoft.OrchardCore.ReCaptcha
     /// <inheritdoc />
     public class Startup : StartupBase
     {
-        private readonly IShellConfiguration _shellConfiguration;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="shellConfiguration"></param>
-        public Startup(IShellConfiguration shellConfiguration)
-        {
-            _shellConfiguration = shellConfiguration;
-        }
-
         /// <inheritdoc />
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -43,7 +31,6 @@ namespace Griesoft.OrchardCore.ReCaptcha
 
             services.AddRecaptchaService();
 
-            services.Configure<RecaptchaSettings>(_shellConfiguration.GetSection(RecaptchaServiceConstants.SettingsSectionKey));
             services.AddTransient<IConfigureOptions<RecaptchaSettings>, RecaptchaSettingsConfiguration>();
 
             services.AddSiteDisplayDriver<RecaptchaSettingsDisplayDriver>();

@@ -267,13 +267,18 @@
             <returns></returns>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration">
-            <inheritdoc />
+            <summary>
+            Configures <see cref="T:Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings"/> with tenant-specific settings from the shell configuration
+            and OrchardCore's site settings, supporting multi-tenancy correctly.
+            Shell configuration values (appsettings.json) take priority over site settings.
+            </summary>
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration.#ctor(OrchardCore.Settings.ISiteService,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,Microsoft.Extensions.Logging.ILogger{Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration})">
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration.#ctor(OrchardCore.Settings.ISiteService,OrchardCore.Environment.Shell.Configuration.IShellConfiguration,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,Microsoft.Extensions.Logging.ILogger{Griesoft.OrchardCore.ReCaptcha.Services.RecaptchaSettingsConfiguration})">
             <summary>
             
             </summary>
             <param name="siteService"></param>
+            <param name="shellConfiguration"></param>
             <param name="dataProtectionProvider"></param>
             <param name="logger"></param>
         </member>
@@ -282,12 +287,6 @@
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Startup">
             <inheritdoc />
-        </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Startup.#ctor(OrchardCore.Environment.Shell.Configuration.IShellConfiguration)">
-            <summary>
-            
-            </summary>
-            <param name="shellConfiguration"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <inheritdoc />
