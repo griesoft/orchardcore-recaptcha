@@ -77,7 +77,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Tests.Services
         private ISiteService CreateSiteServiceMock(string settingsSiteKey, string settingsSecretKey)
         {
             var siteMock = new Mock<ISite>();
-            siteMock.Setup(site => site.As<RecaptchaSettings>())
+            siteMock.Setup(site => site.GetOrCreate<RecaptchaSettings>())
                 .Returns(new RecaptchaSettings() { SiteKey = settingsSiteKey, SecretKey = settingsSecretKey });
             var siteServiceMock = new Mock<ISiteService>();
             siteServiceMock.Setup(service => service.GetSiteSettingsAsync())

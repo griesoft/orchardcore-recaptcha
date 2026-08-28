@@ -41,6 +41,12 @@ jobs:
         value: $[ dependencies.Init.outputs['package.version'] ]
     steps:
 
+      - task: UseDotNet@2
+        displayName: Install .NET SDK (global.json)
+        inputs:
+          packageType: 'sdk'
+          useGlobalJson: true
+
       - task: DotNetCoreCLI@2
         displayName: Restore NuGet packages
         inputs:
