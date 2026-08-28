@@ -19,13 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.0" Condition="'$(RazorRuntimeCompilation)' == 'true'" />
-    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.11" Condition="'$(RazorRuntimeCompilation)' == 'true'" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="3.0.1" />
+    <!-- Transitive pin: OrchardCore 3.0.1 resolves AngleSharp 1.4.0 (GHSA-pgww-w46g-26qg, patched in 1.5.0). Remove once OrchardCore references a patched version. -->
+    <PackageReference Include="AngleSharp" Version="1.7.2" />
   </ItemGroup>
 
   <ItemGroup>

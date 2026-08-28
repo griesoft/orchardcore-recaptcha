@@ -65,7 +65,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             part.ContentText = viewmodel.Content;
             part.TagType = viewmodel.TagType;
 
-            return Edit(part);
+            return Edit(part, context);
         }
     }
 }
