@@ -10,10 +10,10 @@
             </summary>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Griesoft.OrchardCore.ReCaptcha.AdminMenu})">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="stringLocalizer"></param>
+             </summary>
+             <param name="stringLocalizer"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildAsync(OrchardCore.Navigation.NavigationBuilder)">
             <inheritdoc />
@@ -45,15 +45,15 @@
         <member name="P:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.SettingsGroupId">
             <inheritdoc />
         </member>
-        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.IShellReleaseManager,Microsoft.Extensions.Options.IOptionsMonitor{Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings})">
-            <summary>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.Configuration.IShellConfiguration,OrchardCore.Environment.Shell.IShellReleaseManager)">
+             <summary>
             
-            </summary>
-            <param name="authorizationService"></param>
-            <param name="httpContext"></param>
-            <param name="dataProtectionProvider"></param>
-            <param name="shellReleaseManager"></param>
-            <param name="optionsMonitor"></param>
+             </summary>
+             <param name="authorizationService"></param>
+             <param name="httpContext"></param>
+             <param name="dataProtectionProvider"></param>
+             <param name="shellConfiguration"></param>
+             <param name="shellReleaseManager"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditAsync(OrchardCore.Settings.ISite,Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
             <inheritdoc />
@@ -410,6 +410,19 @@
         <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKey">
             <summary>
             The reCAPTCHA secret key.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.HasSecretKey">
+            <summary>
+            Indicates whether a secret key is currently stored for the tenant. The stored
+            secret is never rendered back to the editor; this flag lets the view communicate
+            that a value is set.
+            </summary>
+        </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.ClearSecretKey">
+            <summary>
+            When checked, the stored secret key is removed. Leaving <see cref="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKey"/>
+            empty without checking this keeps the currently stored secret.
             </summary>
         </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.CanEditSiteKey">

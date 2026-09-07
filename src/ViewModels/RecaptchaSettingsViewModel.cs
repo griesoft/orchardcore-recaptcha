@@ -22,6 +22,19 @@ namespace Griesoft.OrchardCore.ReCaptcha.ViewModels
         public string? SecretKey { get; set; } = string.Empty;
 
         /// <summary>
+        /// Indicates whether a secret key is currently stored for the tenant. The stored
+        /// secret is never rendered back to the editor; this flag lets the view communicate
+        /// that a value is set.
+        /// </summary>
+        public bool HasSecretKey { get; set; }
+
+        /// <summary>
+        /// When checked, the stored secret key is removed. Leaving <see cref="SecretKey"/>
+        /// empty without checking this keeps the currently stored secret.
+        /// </summary>
+        public bool ClearSecretKey { get; set; }
+
+        /// <summary>
         /// Indicates whether the site key can be modified or not.
         /// </summary>
         public bool CanEditSiteKey { get; set; }

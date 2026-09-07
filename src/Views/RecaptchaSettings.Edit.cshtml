@@ -1,12 +1,12 @@
-﻿@using Griesoft.OrchardCore.ReCaptcha.ViewModels
+@using Griesoft.OrchardCore.ReCaptcha.ViewModels
 @model RecaptchaSettingsViewModel
 
 <div class="form-group mb-3" asp-validation-class-for="SiteKey">
     <label asp-for="SiteKey">@T["Site Key"]</label>
     <div class="input-group">
-        <input asp-for="SiteKey" class="form-control" type="password" value="@Model.SiteKey" />
-        <button type="button" class="btn btn-outline-secondary" id="ToggleSiteKey">
-            <i class="fas fa-eye"></i>
+        <input asp-for="SiteKey" class="form-control" type="password" value="@Model.SiteKey" disabled="@(!Model.CanEditSiteKey)" />
+        <button type="button" class="btn btn-outline-secondary toggle-key-visibility" aria-label="@T["Show value"]">
+            <i class="fas fa-eye" aria-hidden="true"></i>
         </button>
     </div>
     <span asp-validation-for="SiteKey"></span>
@@ -15,14 +15,32 @@
 <div class="form-group mb-3" asp-validation-class-for="SecretKey">
     <label asp-for="SecretKey">@T["Secret Key"]</label>
     <div class="input-group">
-        <input asp-for="SecretKey" class="form-control" type="password" value="@Model.SecretKey" />
-        <button type="button" class="btn btn-outline-secondary" id="ToggleSecretKey">
-            <i class="fas fa-eye"></i>
+        <input asp-for="SecretKey" class="form-control" type="password" value="" autocomplete="new-password"
+               placeholder="@(Model.HasSecretKey ? "••••••••••••••••" : string.Empty)" disabled="@(!Model.CanEditSecretKey)" />
+        <button type="button" class="btn btn-outline-secondary toggle-key-visibility" aria-label="@T["Show value"]">
+            <i class="fas fa-eye" aria-hidden="true"></i>
         </button>
     </div>
     <span asp-validation-for="SecretKey"></span>
-    <span class="hint">@T["The reCAPTCHA secret key."]</span>
+    @if (Model.HasSecretKey)
+    {
+        <span class="hint">@T["A secret key is set and stored encrypted. Enter a new value to replace it, or leave the field empty to keep the current one."]</span>
+    }
+    else
+    {
+        <span class="hint">@T["The reCAPTCHA secret key."]</span>
+    }
 </div>
+@if (Model.HasSecretKey && Model.CanEditSecretKey)
+{
+    <div class="mb-3">
+        <div class="w-sm-75 w-md-50 w-lg-25 pe-md-3">
+            <input asp-for="ClearSecretKey" type="checkbox" class="form-check-input" />
+            <label asp-for="ClearSecretKey" class="form-check-label">@T["Remove stored secret key"]</label>
+        </div>
+        <span class="hint">@T["Check to delete the stored secret key when saving."]</span>
+    </div>
+}
 <h3 class="mb-3">@T["Configure Proxy"]</h3>
 <div class="mb-3">
     <div class="w-sm-75 w-md-50 w-lg-25 pe-md-3">
@@ -47,31 +65,24 @@
 @if (!Model.CanEditSiteKey || !Model.CanEditSecretKey)
 {
     <p class="alert alert-warning">@T["Keys that are set up in the <code>appsettings.json</code> always take precedence and can not be overridden."]</p>
-    <script at="Foot">
-        $("#ISite_SiteKey").prop('disabled', @((!Model.CanEditSiteKey).ToString().ToLower()));
-        $("#ISite_SecretKey").prop('disabled', @((!Model.CanEditSecretKey).ToString().ToLower()));
-    </script>
 }
 <p class="alert alert-warning">@T["The current tenant will be reloaded when the settings are saved."]</p>
 
 <script at="Foot">
     document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("ToggleSiteKey").addEventListener("click", function () {
-            const siteKeyInput = document.getElementById("ISite_SiteKey");
-            toggleVisibility(siteKeyInput);
-        });
+        document.querySelectorAll(".toggle-key-visibility").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const input = button.closest(".input-group").querySelector("input");
+                const icon = button.querySelector("i");
 
-        document.getElementById("ToggleSecretKey").addEventListener("click", function () {
-            const secretKeyInput = document.getElementById("ISite_SecretKey");
-            toggleVisibility(secretKeyInput);
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.classList.replace("fa-eye", "fa-eye-slash");
+                } else {
+                    input.type = "password";
+                    icon.classList.replace("fa-eye-slash", "fa-eye");
+                }
+            });
         });
-
-        function toggleVisibility(inputField) {
-            if (inputField.type === "password") {
-                inputField.type = "text";
-            } else {
-                inputField.type = "password";
-            }
-        }
     });
 </script>
