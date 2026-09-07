@@ -10,10 +10,10 @@
             </summary>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Griesoft.OrchardCore.ReCaptcha.AdminMenu})">
-             <summary>
+            <summary>
             
-             </summary>
-             <param name="stringLocalizer"></param>
+            </summary>
+            <param name="stringLocalizer"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.AdminMenu.BuildAsync(OrchardCore.Navigation.NavigationBuilder)">
             <inheritdoc />
@@ -46,20 +46,31 @@
             <inheritdoc />
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.#ctor(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,OrchardCore.Environment.Shell.Configuration.IShellConfiguration,OrchardCore.Environment.Shell.IShellReleaseManager)">
-             <summary>
+            <summary>
             
-             </summary>
-             <param name="authorizationService"></param>
-             <param name="httpContext"></param>
-             <param name="dataProtectionProvider"></param>
-             <param name="shellConfiguration"></param>
-             <param name="shellReleaseManager"></param>
+            </summary>
+            <param name="authorizationService"></param>
+            <param name="httpContext"></param>
+            <param name="dataProtectionProvider"></param>
+            <param name="shellConfiguration"></param>
+            <param name="shellReleaseManager"></param>
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.EditAsync(OrchardCore.Settings.ISite,Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.BuildEditorContext)">
             <inheritdoc />
         </member>
         <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.UpdateAsync(OrchardCore.Settings.ISite,Griesoft.AspNetCore.ReCaptcha.Configuration.RecaptchaSettings,OrchardCore.DisplayManagement.Handlers.UpdateEditorContext)">
             <inheritdoc />
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.CanDecryptSecret(System.String,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider)">
+            <summary>
+            Probes whether the stored, protected secret key can be decrypted with the current
+            data protection key ring. The plaintext is never surfaced.
+            </summary>
+        </member>
+        <member name="M:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaSettingsDisplayDriver.GetUpdatedSecretKey(System.String,System.Boolean,System.String,Microsoft.AspNetCore.DataProtection.IDataProtectionProvider)">
+            <summary>
+            Resolves the secret key value to store from the submitted editor values.
+            </summary>
         </member>
         <member name="T:Griesoft.OrchardCore.ReCaptcha.Drivers.RecaptchaV2PartDisplayDriver">
             <summary>
@@ -419,10 +430,18 @@
             that a value is set.
             </summary>
         </member>
+        <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKeyUnreadable">
+            <summary>
+            Indicates that a secret key is stored but can no longer be decrypted on this host,
+            most likely because the data protection key ring has changed. reCAPTCHA validation
+            will fail until a new secret key is entered.
+            </summary>
+        </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.ClearSecretKey">
             <summary>
             When checked, the stored secret key is removed. Leaving <see cref="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKey"/>
-            empty without checking this keeps the currently stored secret.
+            empty without checking this keeps the currently stored secret. A new value entered
+            in <see cref="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.SecretKey"/> takes precedence over this flag.
             </summary>
         </member>
         <member name="P:Griesoft.OrchardCore.ReCaptcha.ViewModels.RecaptchaSettingsViewModel.CanEditSiteKey">

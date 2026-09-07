@@ -29,8 +29,16 @@ namespace Griesoft.OrchardCore.ReCaptcha.ViewModels
         public bool HasSecretKey { get; set; }
 
         /// <summary>
+        /// Indicates that a secret key is stored but can no longer be decrypted on this host,
+        /// most likely because the data protection key ring has changed. reCAPTCHA validation
+        /// will fail until a new secret key is entered.
+        /// </summary>
+        public bool SecretKeyUnreadable { get; set; }
+
+        /// <summary>
         /// When checked, the stored secret key is removed. Leaving <see cref="SecretKey"/>
-        /// empty without checking this keeps the currently stored secret.
+        /// empty without checking this keeps the currently stored secret. A new value entered
+        /// in <see cref="SecretKey"/> takes precedence over this flag.
         /// </summary>
         public bool ClearSecretKey { get; set; }
 

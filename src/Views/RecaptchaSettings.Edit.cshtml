@@ -1,11 +1,12 @@
-@using Griesoft.OrchardCore.ReCaptcha.ViewModels
+﻿@using Griesoft.OrchardCore.ReCaptcha.ViewModels
 @model RecaptchaSettingsViewModel
 
 <div class="form-group mb-3" asp-validation-class-for="SiteKey">
     <label asp-for="SiteKey">@T["Site Key"]</label>
     <div class="input-group">
         <input asp-for="SiteKey" class="form-control" type="password" value="@Model.SiteKey" disabled="@(!Model.CanEditSiteKey)" />
-        <button type="button" class="btn btn-outline-secondary toggle-key-visibility" aria-label="@T["Show value"]">
+        <button type="button" class="btn btn-outline-secondary gs-recaptcha-toggle-key" aria-pressed="false"
+                aria-label="@T["Show value"]" data-label-show="@T["Show value"]" data-label-hide="@T["Hide value"]">
             <i class="fas fa-eye" aria-hidden="true"></i>
         </button>
     </div>
@@ -16,13 +17,18 @@
     <label asp-for="SecretKey">@T["Secret Key"]</label>
     <div class="input-group">
         <input asp-for="SecretKey" class="form-control" type="password" value="" autocomplete="new-password"
-               placeholder="@(Model.HasSecretKey ? "••••••••••••••••" : string.Empty)" disabled="@(!Model.CanEditSecretKey)" />
-        <button type="button" class="btn btn-outline-secondary toggle-key-visibility" aria-label="@T["Show value"]">
+               placeholder="@(Model.HasSecretKey && !Model.SecretKeyUnreadable ? "••••••••••••••••" : string.Empty)" disabled="@(!Model.CanEditSecretKey)" />
+        <button type="button" class="btn btn-outline-secondary gs-recaptcha-toggle-key" aria-pressed="false"
+                aria-label="@T["Show value"]" data-label-show="@T["Show value"]" data-label-hide="@T["Hide value"]">
             <i class="fas fa-eye" aria-hidden="true"></i>
         </button>
     </div>
     <span asp-validation-for="SecretKey"></span>
-    @if (Model.HasSecretKey)
+    @if (Model.SecretKeyUnreadable)
+    {
+        <p class="alert alert-danger mt-2" role="alert">@T["A secret key is stored but could not be decrypted on this host — the data protection key ring has most likely changed. reCAPTCHA validation will fail until you enter the secret key again."]</p>
+    }
+    else if (Model.HasSecretKey)
     {
         <span class="hint">@T["A secret key is set and stored encrypted. Enter a new value to replace it, or leave the field empty to keep the current one."]</span>
     }
@@ -38,7 +44,7 @@
             <input asp-for="ClearSecretKey" type="checkbox" class="form-check-input" />
             <label asp-for="ClearSecretKey" class="form-check-label">@T["Remove stored secret key"]</label>
         </div>
-        <span class="hint">@T["Check to delete the stored secret key when saving."]</span>
+        <span class="hint">@T["Check to delete the stored secret key when saving. A new value entered above takes precedence."]</span>
     </div>
 }
 <h3 class="mb-3">@T["Configure Proxy"]</h3>
@@ -70,17 +76,20 @@
 
 <script at="Foot">
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".toggle-key-visibility").forEach(function (button) {
+        document.querySelectorAll(".gs-recaptcha-toggle-key:not([data-gs-toggle-bound])").forEach(function (button) {
+            button.setAttribute("data-gs-toggle-bound", "true");
             button.addEventListener("click", function () {
                 const input = button.closest(".input-group").querySelector("input");
                 const icon = button.querySelector("i");
+                const reveal = input.type === "password";
 
-                if (input.type === "password") {
-                    input.type = "text";
-                    icon.classList.replace("fa-eye", "fa-eye-slash");
-                } else {
-                    input.type = "password";
-                    icon.classList.replace("fa-eye-slash", "fa-eye");
+                input.type = reveal ? "text" : "password";
+                button.setAttribute("aria-pressed", reveal ? "true" : "false");
+                button.setAttribute("aria-label", reveal ? button.dataset.labelHide : button.dataset.labelShow);
+
+                if (icon) {
+                    icon.classList.toggle("fa-eye", !reveal);
+                    icon.classList.toggle("fa-eye-slash", reveal);
                 }
             });
         });

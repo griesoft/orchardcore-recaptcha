@@ -1,4 +1,4 @@
-using Griesoft.AspNetCore.ReCaptcha.Configuration;
+﻿using Griesoft.AspNetCore.ReCaptcha.Configuration;
 using Griesoft.OrchardCore.ReCaptcha.Services;
 using Griesoft.OrchardCore.ReCaptcha.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +34,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         protected override string SettingsGroupId => EditorGroupId;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="authorizationService"></param>
         /// <param name="httpContext"></param>
@@ -69,6 +69,7 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
                 // and never rendered back into the editor.
                 viewModel.SecretKey = string.Empty;
                 viewModel.HasSecretKey = !string.IsNullOrWhiteSpace(section.SecretKey);
+                viewModel.SecretKeyUnreadable = viewModel.HasSecretKey && !CanDecryptSecret(section.SecretKey, _dataProtectionProvider);
                 viewModel.UseProxy = section.UseProxy ?? false;
                 viewModel.ProxyAddress = section.ProxyAddress;
                 viewModel.BypassOnLocal = section.BypassOnLocal;
@@ -92,24 +93,12 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             // precedence, so editing the corresponding stored value is not allowed.
             if (!IsConfiguredInShellConfiguration(nameof(RecaptchaSettings.SiteKey)))
             {
-                section.SiteKey = viewModel.SiteKey ?? string.Empty;
+                section.SiteKey = viewModel.SiteKey?.Trim() ?? string.Empty;
             }
 
             if (!IsConfiguredInShellConfiguration(nameof(RecaptchaSettings.SecretKey)))
             {
-                if (viewModel.ClearSecretKey)
-                {
-                    section.SecretKey = string.Empty;
-                }
-                else if (!string.IsNullOrWhiteSpace(viewModel.SecretKey))
-                {
-                    // Replacing the secret must not depend on the old value being decryptable,
-                    // so that a new secret can always be stored after a data protection
-                    // key ring change.
-                    var protector = _dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration));
-                    section.SecretKey = protector.Protect(viewModel.SecretKey);
-                }
-                // An empty input keeps the currently stored secret.
+                section.SecretKey = GetUpdatedSecretKey(viewModel.SecretKey, viewModel.ClearSecretKey, section.SecretKey, _dataProtectionProvider);
             }
 
             section.UseProxy = viewModel.UseProxy;
@@ -121,6 +110,47 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
             return await EditAsync(model, section, context);
         }
 
+        /// <summary>
+        /// Probes whether the stored, protected secret key can be decrypted with the current
+        /// data protection key ring. The plaintext is never surfaced.
+        /// </summary>
+        internal static bool CanDecryptSecret(string protectedSecretKey, IDataProtectionProvider dataProtectionProvider)
+        {
+            try
+            {
+                dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration)).Unprotect(protectedSecretKey);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Resolves the secret key value to store from the submitted editor values.
+        /// </summary>
+        internal static string GetUpdatedSecretKey(string? submittedSecretKey, bool clearRequested, string currentSecretKey,
+            IDataProtectionProvider dataProtectionProvider)
+        {
+            // A newly entered secret is the strongest signal of intent, so it takes precedence
+            // over a simultaneous clear request. Storing it must not depend on the current
+            // value being decryptable, so that a new secret can always be saved after a data
+            // protection key ring change.
+            if (!string.IsNullOrWhiteSpace(submittedSecretKey))
+            {
+                return dataProtectionProvider.CreateProtector(nameof(RecaptchaSettingsConfiguration)).Protect(submittedSecretKey.Trim());
+            }
+
+            if (clearRequested)
+            {
+                return string.Empty;
+            }
+
+            // An empty input keeps the currently stored secret.
+            return currentSecretKey;
+        }
+
         private async Task<bool> IsAuthorizedToManageRecaptchaSettingsAsync()
         {
             var user = _httpContext.HttpContext?.User;
@@ -129,7 +159,9 @@ namespace Griesoft.OrchardCore.ReCaptcha.Drivers
         }
         private bool IsConfiguredInShellConfiguration(string settingName)
         {
-            return !string.IsNullOrWhiteSpace(
+            // Matches the emptiness rule that RecaptchaSettingsConfiguration.Configure applies
+            // when deciding whether shell configuration takes precedence over site settings.
+            return !string.IsNullOrEmpty(
                 _shellConfiguration.GetSection(RecaptchaServiceConstants.SettingsSectionKey)[settingName]);
         }
     }

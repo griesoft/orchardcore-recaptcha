@@ -1,4 +1,4 @@
-using Griesoft.OrchardCore.ReCaptcha.Drivers;
+﻿using Griesoft.OrchardCore.ReCaptcha.Drivers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Navigation;
@@ -20,7 +20,7 @@ namespace Griesoft.OrchardCore.ReCaptcha
         private readonly IStringLocalizer S;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="stringLocalizer"></param>
         public AdminMenu(IStringLocalizer<AdminMenu> stringLocalizer)
