@@ -25,9 +25,11 @@ In the Admin panel, navigate to `Configuration -> Features`. Search for `ReCaptc
 
 ### Configuration
 
-Navigate to `Configuration -> Settings -> ReCaptcha`. Enter your Site and Secret keys acquired earlier and click save.
+Navigate to `Settings -> Security -> ReCaptcha` (or `Security -> Settings -> ReCaptcha` when the legacy admin menu format is enabled). Enter your Site and Secret keys acquired earlier and click save.
 
 _Hint: You can also configure the service via app settings. For more information, refer to [this guide](https://github.com/griesoft/aspnetcore-recaptcha#settings). This method also supports multi-tenancy._
+
+> **Note:** The secret key is stored encrypted using ASP.NET Core Data Protection. Your host must keep a stable data protection key ring across deployments, deployment slots and instances (for example by persisting the keys to Azure Blob Storage with `OrchardCore.DataProtection.Azure`). If the key ring changes, the stored secret can no longer be decrypted and has to be entered again — the settings page will warn you when that happens.
 
 ## Usage
 The module includes parts for each reCAPTCHA challenge type (Invisible, V2, V3) that you can attach to your content types. Additionally, it provides widgets, which are particularly useful with the `OrchardCore.Forms` module.
